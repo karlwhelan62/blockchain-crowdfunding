@@ -29,7 +29,7 @@
 
 ### Introduction
 
-> General area covered by the project.
+> describe the general area covered by the project.
 
 ### Outline
 
@@ -37,7 +37,7 @@
 
 ### Background
 
-> where the ideas came from?
+> Where did the ideas come from?
 
 ### Achievements
 
