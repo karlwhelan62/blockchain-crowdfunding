@@ -13,15 +13,15 @@ Complete the following proposal form.
 |Student 2 ID:        | xxxxxx            |
 |Project Supervisor:  | xxxxxx            |
 
->Note: Students must ensure that the Supervisor formally agrees to supervise your project; this is only
->recognised once the Supervisor assigns herself/himself via the project Dashboard. Project proposals without an
->assigned Supervisor will not be accepted for presentation to the Approval Panel.
+> Ensure that the Supervisor formally agrees to supervise your project; this is only recognised once the
+> Supervisor assigns herself/himself via the project Dashboard. Project proposals without an assigned
+> Supervisor will not be accepted for presentation to the Approval Panel.
 
 ## SECTION B
 
-Guidance: This document is expected to be approximately 3 pages in length, but it can exceed this page limit.
-It is also permissible to carry forward content from this proposal to your later documents (e.g. functional
-specification) as appropriate.
+> Guidance: This document is expected to be approximately 3 pages in length, but it can exceed this page limit.
+> It is also permissible to carry forward content from this proposal to your later documents (e.g. functional
+> specification) as appropriate.
 
 
 General area covered by the project
