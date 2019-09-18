@@ -5,6 +5,7 @@ Complete the following proposal form.
 ## SECTION A
 
 |                     |                   |
+|---------------------|-------------------|
 |Project Title:       |                   |
 |Student 1 Name:      |                   |
 |Student 1 ID:        |                   |
