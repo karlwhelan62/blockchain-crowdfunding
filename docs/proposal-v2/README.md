@@ -45,7 +45,7 @@
 
 ### Justification
 
-> Why/when/where/how it will be useful?
+> Why/when/where/how will it be useful?
 
 ### Programming language(s)
 
