@@ -1,9 +1,9 @@
+# School of Computing &mdash; Year 4 Project Proposal Form
+
 > Edit (then commit and push) this document to complete your proposal form.
 > Make use of figures / diagrams where appropriate.
 >
 > Do not rename this file.
-
-# School of Computing &mdash; Year 4 Project Proposal Form
 
 ## SECTION A
 
