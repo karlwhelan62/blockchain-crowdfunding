@@ -25,6 +25,8 @@
 > Guidance: This document is expected to be approximately 3 pages in length, but it can exceed this page limit.
 > It is also permissible to carry forward content from this proposal to your later documents (e.g. functional
 > specification) as appropriate.
+>
+> Your proposal must include *at least* the following sections.
 
 
 ### Introduction
