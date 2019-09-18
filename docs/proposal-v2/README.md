@@ -33,7 +33,7 @@
 
 ### Outline
 
-> Outline of the proposed project.
+> Outline the proposed project.
 
 ### Background
 
