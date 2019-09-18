@@ -29,7 +29,7 @@
 
 ### Introduction
 
-> describe the general area covered by the project.
+> Describe the general area covered by the project.
 
 ### Outline
 
