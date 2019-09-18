@@ -70,6 +70,10 @@
 ### Breakdown of work
 
 > Clearly identify who will undertake which parts of the project.
+>
+> It must be clear from the explanation of this breakdown of work both that each student is responsible for
+> separate clearly-defined tasks, and that those responsibilities substantially cover all of the work required
+> for the project.
 
 #### Student 1
 
