@@ -7,13 +7,10 @@ Complete the following proposal form.
 |                     |                   |
 |---------------------|-------------------|
 |Project Title:       | xxxxxx            |
-|---------------------|-------------------|
 |Student 1 Name:      | xxxxxx            |
 |Student 1 ID:        | xxxxxx            |
-|---------------------|-------------------|
 |Student 2 Name:      | xxxxxx            |
 |Student 2 ID:        | xxxxxx            |
-|---------------------|-------------------|
 |Project Supervisor:  | xxxxxx            |
 |---------------------|-------------------|
 
