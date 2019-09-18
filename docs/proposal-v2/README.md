@@ -6,13 +6,13 @@ Complete the following proposal form.
 
 |                     |                   |
 |---------------------|-------------------|
-|Project Title:       |                   |
-|Student 1 Name:      |                   |
-|Student 1 ID:        |                   |
-|Student 2 Name:      |                   |
-|Student 2 ID:        |                   |
+|Project Title:       | xxxxxx            |
+|Student 1 Name:      | xxxxxx            |
+|Student 1 ID:        | xxxxxx            |
+|Student 2 Name:      | xxxxxx            |
+|Student 2 ID:        | xxxxxx            |
 
-Project Supervisor:   |                   |
+Project Supervisor:   | xxxxxx            |
 
 >Note: Students must ensure that the Supervisor formally agrees to supervise your project; this is only
 >recognised once the Supervisor assigns herself/himself via the project Dashboard. Project proposals without an
