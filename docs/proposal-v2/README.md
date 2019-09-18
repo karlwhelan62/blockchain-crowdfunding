@@ -1,4 +1,7 @@
-Complete the following proposal form.
+> Edit (then commit and push) this document to complete your proposal form.
+> Make use of figures / diagrams where appropriate.
+
+> Do not rename this file.
 
 # School of Computing &mdash; Year 4 Project Proposal Form
 
@@ -24,19 +27,51 @@ Complete the following proposal form.
 > specification) as appropriate.
 
 
-General area covered by the project
-Outline of the proposed project
-Background - where the ideas came from
-Achievements - what functions it provides, who the users will be
-Justification - why/when/where/how it will be useful
-Programming language(s) - List the proposed language(s) to be used
-Programming tools / Tech stack â e.g. compiler, database, web server, etc.
-Learning Challenges - List the main new things (technologies, languages, tools, etc) that you will have to
-learn
-IMPORTANT: Breakdown of work â clearly identify who will undertake which parts. This section should
-have two sub-sections: One titled âStudent 1â, the other âStudent 2â
-Hardware / software platform - State the hardware and software platforms to be utilised.
-Special hardware / software requirements - Describe any special requirements.
-Make use of figures / diagrams where appropriate.
-Note: The final revision of your proposal form should be converted to a PDF and stored in your GitLab repo in
-the docs/proposal folder from where it will be automatically collected. 
+### Introduction
+
+> General area covered by the project.
+
+### Outline
+
+> Outline of the proposed project.
+
+### Background
+
+> where the ideas came from?
+
+### Achievements
+
+> What functions will the project provide? Who will the users be?
+
+### Justification
+
+> Why/when/where/how it will be useful?
+
+### Programming language(s)
+
+> List the proposed language(s) to be used.
+
+### Programming tools / Tech stack
+
+> Describe the compiler, database, web server, etc., and any other software tools you plan to use.
+
+### Hardware
+
+> Describe any non-standard hardware components which will be required.
+
+### Learning Challenges
+
+> List the main new things (technologies, languages, tools, etc) that you will have to learn.
+
+### Breakdown of work
+
+> Clearly identify who will undertake which parts of the project.
+
+#### Student 1
+
+> *Student 1 should complete this section.*
+
+#### Student 2
+
+> *Student 2 should complete this section.*
+
