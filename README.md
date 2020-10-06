@@ -8,8 +8,8 @@ One person from your project team should fork this repo, then add other teammate
 
 ## 2. Name your repo appropriately
 
-The name of your project must be of the form `2020-ca400-XXXXXXX`, where "`XXXXXXX`"
-should be replaced with your usernames (e.g. `2020-ca400-sblott-pclark`).
+The name of your project must be of the form `2021-ca400-XXXXXXX`, where "`XXXXXXX`"
+should be replaced with your usernames (e.g. `2021-ca400-sblott-pclark`).
 
 It is the *name of your repo* which matters (not the name of your project).
 
