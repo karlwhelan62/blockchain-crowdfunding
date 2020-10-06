@@ -9,7 +9,9 @@ One person from your project team should fork this repo, then add other teammate
 ## 2. Name your repo appropriately
 
 The name of your project must be of the form `2021-ca400-XXXXXXX`, where "`XXXXXXX`"
-should be replaced with your usernames (e.g. `2021-ca400-sblott-pclark`).
+should be replaced with your usernames (e.g. `2021-ca400-sblott-pclarke`).
+**Note** that the year should be set as appropriate to your year of study (e.g. in the
+2021/2022 academic year, this would change to '2022-ca400-sblott-pclarke')
 
 It is the *name of your repo* which matters (not the name of your project).
 
