@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Crowdfunding DApp</title>
+ <link href='https://fonts.googleapis.com/css?family=Open Sans:400,700' rel='stylesheet' type='text/css'>
+ <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+</head>
+<body class="container">
+ <ul>
+   <li><a href=index.html>Create Project</a></li>
+   <li><a href=about.html>View Projects</a></li>
+ </ul>
+ <h1>Create Project</h1>
+ <div class="table-responsive">
+   <form id="project attributes" action="/action_page.php">
+     <label for="name">Project Name</label><br>
+     <input type="text" id="name" name="name"><br>
+     <label for="paragraph">Project Description</label><br>
+     <input type="text" id="paragraph" name="paragraph"><br>
+     <label for="linkToVideo">Video Link</label><br>
+     <input type="text" id="linkToVideo" name="linkToVideo"><br>
+     <label for="fundingGoal">Project Funding Goal</label><br>
+     <input type="text" id="fundingGoal" name="fundingGoal"><br>
+     <label for="projectLength">Project Length</label><br>
+     <input type="date" id="projectLength" name="projectLength" min="2020-04-02"><br>
+   </form>
+ </div>
+ <a href="#" onclick="CreateProject()" class="btn btn-primary">Submit</a>
+</body>
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.37/dist/web3.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<script src="./index.js"></script>
+</html>
