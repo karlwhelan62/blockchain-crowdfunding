@@ -4,10 +4,10 @@ web3.eth.getAccounts().then((f) => {
  account = f[0];
 })
 
-abi = JSON.parse('[{"inputs":[{"internalType":"bytes32","name":"name","type":"bytes32"},{"internalType":"bytes32","name":"description","type":"bytes32"},{"internalType":"bytes32","name":"videoLink","type":"bytes32"},{"internalType":"uint256","name":"fundingGoal","type":"uint256"},{"internalType":"uint256","name":"projectLength","type":"uint256"}],"name":"CreateProject","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"amountsRaised","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"descriptions","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"x","type":"uint256"},{"internalType":"uint256","name":"i","type":"uint256"}],"name":"donateToProject","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"fundingGoals","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"i","type":"uint256"}],"name":"goalMeet","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"index","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"names","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"projectEndTimes","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"returnProjects","outputs":[{"internalType":"bytes32[]","name":"","type":"bytes32[]"},{"internalType":"bytes32[]","name":"","type":"bytes32[]"},{"internalType":"bytes32[]","name":"","type":"bytes32[]"},{"internalType":"uint256[]","name":"","type":"uint256[]"},{"internalType":"uint256[]","name":"","type":"uint256[]"},{"internalType":"uint256[]","name":"","type":"uint256[]"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"videoLinks","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"}]')
+abi = JSON.parse('[{"inputs":[{"internalType":"bytes32","name":"_name","type":"bytes32"},{"internalType":"bytes32","name":"_description","type":"bytes32"},{"internalType":"bytes32","name":"_videoLink","type":"bytes32"},{"internalType":"uint256","name":"_fundingGoal","type":"uint256"},{"internalType":"uint256","name":"_projectEndTime","type":"uint256"}],"name":"CreateProject","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"x","type":"uint256"},{"internalType":"uint256","name":"i","type":"uint256"}],"name":"donateToProject","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"returnProjects","outputs":[{"components":[{"internalType":"bytes32","name":"name","type":"bytes32"},{"internalType":"bytes32","name":"description","type":"bytes32"},{"internalType":"bytes32","name":"videoLink","type":"bytes32"},{"internalType":"uint256","name":"fundingGoal","type":"uint256"},{"internalType":"uint256","name":"amountRaised","type":"uint256"},{"internalType":"uint256","name":"projectEndTime","type":"uint256"}],"internalType":"struct Projects.Project[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"}]')
 
 contract = new web3.eth.Contract(abi);
-contract.options.address = "0x355A9D36602d2ecD680490a94c8f9d3E35daEC9F";
+contract.options.address = "0xEb2EAa357bC9368Fee9ACCc6754acF1Ab4F5327e";
 // update this contract address with your contract address
 
 window.onload = DisplayProjects();
@@ -17,24 +17,23 @@ function DisplayProjects() {
   x.then((f) => DisplayTable(f));
 }
 
-function DisplayTable(x) {
-  var names = x[0];
-  var descriptions= x[1];
-  var videoLinks = x[2];
-  var fundingGoals = x[3];
-  var amountsRaised = x[4];
-  var projectEndTimes = x[5];
+function Test(x) {
+  for(i = 0; i < x.length; i++) {
+    console.log(x[i][3]);
+  }
+}
 
+function DisplayTable(x) {
   var bodyString = '';
-  $.each(fundingGoals, function(index, goal){
-    bodyString += ('<tr><td>' + index +
-                   '</td><td>' + web3.utils.hexToAscii(names[index]) +
-                   '</td><td>' + web3.utils.hexToAscii(descriptions[index]) +
-                   '</td><td>' + web3.utils.hexToAscii(videoLinks[index]) +
-                   '</td><td>' + goal +
-                   '</td><td>' + amountsRaised[index] +
-                   '</td><td>' + new Date(projectEndTimes[index] * 1000).toLocaleDateString() + '</td></tr>');
-  });
+  for(i = 0; i < x.length; i++) {
+    bodyString += ('<tr><td>' + i +
+                   '</td><td>' + web3.utils.hexToAscii(x[i][0]) +
+                   '</td><td>' + web3.utils.hexToAscii(x[i][1]) +
+                   '</td><td>' + web3.utils.hexToAscii(x[i][2]) +
+                   '</td><td>' + x[i][3] +
+                   '</td><td>' + x[i][4] +
+                   '</td><td>' + new Date(x[i][5] * 1000).toLocaleDateString() + '</td></tr>');
+  }
   $('.projectsTable tbody').html(bodyString);
 }
 
