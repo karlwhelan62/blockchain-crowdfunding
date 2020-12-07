@@ -1,61 +1,70 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.4.16 < 0.8.0;
+pragma experimental ABIEncoderV2;
 
 contract Projects{
 
-  // sets 2 state variables of type uint (insigned interger of 256 bits)
-  // one for the funding goal and one for the ammount raised so far
-  uint[] public fundingGoals;
-  uint[] public amountsRaised;
-  uint public index;
-  bytes32[] public names;
-  bytes32[] public descriptions;
-  bytes32[] public videoLinks;
-  // project end time in absolute unix timestamp format
-  uint[] public projectEndTimes;
+  // Defines a refrence type to define a project
+  struct Project {
+    bytes32 name;
+    bytes32 description;
+    bytes32 videoLink;
+    uint fundingGoal;
+    uint amountRaised;
+    uint projectEndTime;
+  }
+
+  // number of projectsTabl
+  // used as an donate_index
+  uint numProjects;
+
+  // maps an id number to a project
+  mapping (uint => Project) projects;
+
+
   // Set to true at the end, by default initialised to false
   // bool[] ended;
 
   // contructor code is only run when the contract is created
-  function CreateProject(bytes32 name,
-                         bytes32 description,
-                         bytes32 videoLink,
-                         uint fundingGoal,
-                         uint projectLength) public {
-    names.push(name);
-    descriptions.push(description);
-    videoLinks.push(videoLink);
-    fundingGoals.push(fundingGoal);
-    amountsRaised.push(0);
-    projectEndTimes.push(projectLength);
-    index ++;
+  function CreateProject(bytes32 _name,
+                         bytes32 _description,
+                         bytes32 _videoLink,
+                         uint _fundingGoal,
+                         uint _projectEndTime) public {
+
+    numProjects++;
+    projects[numProjects] = Project(
+       {
+         name: _name,
+         description: _description,
+         videoLink: _videoLink,
+         fundingGoal: _fundingGoal,
+         amountRaised: 0,
+         projectEndTime: _projectEndTime
+       }
+    );
   }
 
-  function returnProjects() view public returns (bytes32[] memory,
-                                                 bytes32[] memory,
-                                                 bytes32[] memory,
-                                                 uint[] memory,
-                                                 uint[] memory,
-                                                 uint[] memory,
-                                                 uint) {
-    return (names,
-            descriptions,
-            videoLinks,
-            fundingGoals,
-            amountsRaised,
-            projectEndTimes,
-            index);
+  function returnProjects() public view returns (Project[] memory) {
+
+    Project[] memory projectArray = new Project[](numProjects);
+
+    for (uint i = 0; i < numProjects; i ++) {
+      projectArray[i] = projects[i + 1];
+    }
+
+    return projectArray;
   }
 
   function donateToProject(uint x, uint i) public {
-    require(block.timestamp <= projectEndTimes[i], "Project has ended");
-    amountsRaised[i] += x;
+    require(block.timestamp <= projects[i + 1].projectEndTime, "Project has ended");
+    projects[i + 1].amountRaised += x;
   }
 
-  function goalMeet(uint i) view public returns (bool) {
-    if (amountsRaised[i] >= fundingGoals[i]) {
-      return true;
-    }
-    return false;
-  }
+//  function goalMeet(uint i) view public returns (bool) {
+//    if (amountsRaised[i] >= fundingGoals[i]) {
+//      return true;
+//    }
+//    return false;
+//  }
 }
