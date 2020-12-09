@@ -14,15 +14,15 @@
  <div class="table-responsive">
    <form id="project attributes" action="/action_page.php">
      <label for="name">Project Name</label><br>
-     <input type="text" id="name" name="name"><br>
+     <input type="text" id="name" name="name" required><br>
      <label for="paragraph">Project Description</label><br>
-     <input type="text" id="paragraph" name="paragraph"><br>
+     <input type="text" id="paragraph" name="paragraph" required><br>
      <label for="linkToVideo">Video Link</label><br>
-     <input type="text" id="linkToVideo" name="linkToVideo"><br>
+     <input type="text" id="linkToVideo" name="linkToVideo" required><br>
      <label for="fundingGoal">Project Funding Goal</label><br>
-     <input type="text" id="fundingGoal" name="fundingGoal"><br>
+     <input type="number" id="fundingGoal" name="fundingGoal" required><br>
      <label for="projectLength">Project Length</label><br>
-     <input type="date" id="projectLength" name="projectLength" min="2020-04-02"><br>
+     <input type="date" id="projectLength" name="projectLength" min="2020-04-02" required><br>
    </form>
  </div>
  <a href="#" onclick="CreateProject()" class="btn btn-primary">Submit</a>
