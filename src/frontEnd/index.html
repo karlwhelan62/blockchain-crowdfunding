@@ -22,6 +22,8 @@
      <label for="fundingGoal">Project Funding Goal</label><br>
      <input type="number" id="fundingGoal" name="fundingGoal" required><br>
      <label for="projectLength">Project Length</label><br>
+     <!-- We need to set the minimum date here to be an arbitray date in order for the data to have that attribute -->
+     <!-- We can then overwrite this attribute in our javascript so that the minimum date is dynamically generated -->
      <input type="date" id="projectLength" name="projectLength" min="2020-04-02" required><br>
    </form>
  </div>
