@@ -21,16 +21,15 @@ contract Projects{
   // maps an id number to a project
   mapping (uint => Project) projects;
 
-
   // Set to true at the end, by default initialised to false
   // bool[] ended;
 
   // contructor code is only run when the contract is created
-  function CreateProject(bytes32 _name,
+  function createProject(bytes32 _name,
                          bytes32 _description,
                          bytes32 _videoLink,
                          uint _fundingGoal,
-                         uint _projectEndTime) public {
+                         uint _projectEndTime) public returns (bool){
 
     numProjects++;
     projects[numProjects] = Project(
@@ -43,6 +42,7 @@ contract Projects{
          projectEndTime: _projectEndTime
        }
     );
+    return true;
   }
 
   function returnProjects() public view returns (Project[] memory) {
@@ -56,9 +56,10 @@ contract Projects{
     return projectArray;
   }
 
-  function donateToProject(uint x, uint i) public {
+  function donateToProject(uint x, uint i) public returns (bool){
     require(block.timestamp <= projects[i + 1].projectEndTime, "Project has ended");
     projects[i + 1].amountRaised += x;
+    return true;
   }
 
 //  function goalMeet(uint i) view public returns (bool) {

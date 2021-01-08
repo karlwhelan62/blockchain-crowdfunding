@@ -4,10 +4,10 @@ web3.eth.getAccounts().then((f) => {
  account = f[0];
 })
 
-abi = JSON.parse('[{"inputs":[{"internalType":"bytes32","name":"_name","type":"bytes32"},{"internalType":"bytes32","name":"_description","type":"bytes32"},{"internalType":"bytes32","name":"_videoLink","type":"bytes32"},{"internalType":"uint256","name":"_fundingGoal","type":"uint256"},{"internalType":"uint256","name":"_projectEndTime","type":"uint256"}],"name":"CreateProject","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"x","type":"uint256"},{"internalType":"uint256","name":"i","type":"uint256"}],"name":"donateToProject","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"returnProjects","outputs":[{"components":[{"internalType":"bytes32","name":"name","type":"bytes32"},{"internalType":"bytes32","name":"description","type":"bytes32"},{"internalType":"bytes32","name":"videoLink","type":"bytes32"},{"internalType":"uint256","name":"fundingGoal","type":"uint256"},{"internalType":"uint256","name":"amountRaised","type":"uint256"},{"internalType":"uint256","name":"projectEndTime","type":"uint256"}],"internalType":"struct Projects.Project[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"}]')
+abi = JSON.parse('[{"inputs":[{"internalType":"bytes32","name":"_name","type":"bytes32"},{"internalType":"bytes32","name":"_description","type":"bytes32"},{"internalType":"bytes32","name":"_videoLink","type":"bytes32"},{"internalType":"uint256","name":"_fundingGoal","type":"uint256"},{"internalType":"uint256","name":"_projectEndTime","type":"uint256"}],"name":"createProject","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"x","type":"uint256"},{"internalType":"uint256","name":"i","type":"uint256"}],"name":"donateToProject","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"returnProjects","outputs":[{"components":[{"internalType":"bytes32","name":"name","type":"bytes32"},{"internalType":"bytes32","name":"description","type":"bytes32"},{"internalType":"bytes32","name":"videoLink","type":"bytes32"},{"internalType":"uint256","name":"fundingGoal","type":"uint256"},{"internalType":"uint256","name":"amountRaised","type":"uint256"},{"internalType":"uint256","name":"projectEndTime","type":"uint256"}],"internalType":"struct Projects.Project[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"}]')
 
 contract = new web3.eth.Contract(abi);
-contract.options.address = "0x99b8A97E39483C4e08D046d9639513BD10412191";
+contract.options.address = "0x631F0b187fdD105Efd29fA12981Ad50CfbC8E8D5";
 
 // This block sets the min length of a project to be 1 day
 // Also stops users selcting dates in the past
@@ -49,7 +49,7 @@ function CreateProject() {
 
  // send attributes to smart contract IF they are valid
  if (checkFormElements(formElements)) {
-   contract.methods.CreateProject(web3.utils.asciiToHex(formElements.elements[0].value),
+   contract.methods.createProject(web3.utils.asciiToHex(formElements.elements[0].value),
                                   web3.utils.asciiToHex(formElements.elements[1].value),
                                   web3.utils.asciiToHex(formElements.elements[2].value),
                                   formElements.elements[3].value,
