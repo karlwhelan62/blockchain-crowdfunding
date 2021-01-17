@@ -1,0 +1,8 @@
+.navbar {
+  height: 100px;
+  background-color: #333333;
+  color: whitesmoke;
+  text-align: center;
+  font-size: 20px;
+  justify-content: center;
+}
