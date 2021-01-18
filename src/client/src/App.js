@@ -54,17 +54,6 @@ class App extends Component {
     }
   };
 
-  createProject() {
-    let convertToDate = new Date(this.state.projectLength)
-    this.state.contract.methods.createProject(
-      this.state.web3.utils.asciiToHex(this.state.projectName),
-      this.state.web3.utils.asciiToHex(this.state.projectDescription),
-      this.state.web3.utils.asciiToHex(this.state.projectVideoLink),
-      this.state.projectFundingGoal,
-      Math.floor(convertToDate.valueOf() / 1000)).send(
-        {from: this.state.accounts[0], gas:1500000}).then((f) => console.log(f))
-  }
-
   retreiveProjects = async () => {
     let x =  await this.state.contract.methods.returnProjects().call()
     for(let i = 0; i < x.length; i ++) {
@@ -80,13 +69,43 @@ class App extends Component {
     })
   }
 
+  createProject() {
+    let convertToDate = new Date(this.state.projectLength)
+
+    try {
+      this.state.contract.methods.createProject(
+        this.state.web3.utils.asciiToHex(this.state.projectName),
+        this.state.web3.utils.asciiToHex(this.state.projectDescription),
+        this.state.web3.utils.asciiToHex(this.state.projectVideoLink),
+        this.state.projectFundingGoal,
+        Math.floor(convertToDate.valueOf() / 1000)).send(
+          {from: this.state.accounts[0], gas:1500000})
+          .then(f => alert("Project Creation Successful"))
+          .catch(err => (
+            alert("Project Creation Failed! See console for details"),
+            console.log(err)
+          ))
+    } catch(error) {
+      alert("project Creation Failed! See console for details")
+      console.log(error)
+    }
+  }
+
   donateToProject(projectKey) {
-    console.log(projectKey)
-    console.log(this.state.donationAmount)
-    this.state.contract.methods.donateToProject(
-      this.state.donationAmount, projectKey).send({from: this.state.accounts[0],
-                                                   gas:1500000}
-      ).then((f) => console.log(f));
+
+    try {
+      this.state.contract.methods.donateToProject(
+        this.state.donationAmount, projectKey).send({from: this.state.accounts[0],
+                                                     gas:1500000})
+        .then(f => alert("Project Donation Successful"))
+        .catch(err => (
+          alert("Project Doantion Failed! See console for details"),
+          console.log(err)
+        ))
+    } catch(error) {
+      alert("Project Donation Failed! See console for details")
+      console.log(error)
+    }
   }
 
 
