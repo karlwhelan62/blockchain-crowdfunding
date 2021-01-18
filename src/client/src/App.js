@@ -69,7 +69,8 @@ class App extends Component {
     })
   }
 
-  createProject() {
+  createProject(event) {
+    event.preventDefault()
     let convertToDate = new Date(this.state.projectLength)
 
     try {
@@ -91,10 +92,10 @@ class App extends Component {
     }
   }
 
-  donateToProject(projectKey) {
+  donateToProject = async (projectKey) => {
 
     try {
-      this.state.contract.methods.donateToProject(
+      await this.state.contract.methods.donateToProject(
         this.state.donationAmount, projectKey).send({from: this.state.accounts[0],
                                                      gas:1500000})
         .then(f => alert("Project Donation Successful"))
@@ -106,6 +107,11 @@ class App extends Component {
       alert("Project Donation Failed! See console for details")
       console.log(error)
     }
+
+    this.setState({
+      projectsMap: null
+    })
+    this.retreiveProjects()
   }
 
 
@@ -129,8 +135,9 @@ class App extends Component {
   }
 
   handleChange(event) {
+    const {name, value} = event.target
     this.setState({
-      [event.target.name]: event.target.value
+      [name]: value
     })
   }
 
