@@ -26,7 +26,7 @@ class CreateProjectPageBody extends Component {
       <div>
         <h1>Create Project</h1>
         <div className="table-responsive">
-          <form id="project attributes" action="/action_page.php">
+          <form onSubmit={this.props.createProject}>
             <Input handleChange={this.props.handleChange}
                    labelName="Project Name"
                    name= "projectName"
@@ -48,8 +48,8 @@ class CreateProjectPageBody extends Component {
                    name = "projectLength"
                    inputType="date"
                    minDate={this.getTomorrowsDate()}/>
+            <button>Submit</button>
           </form>
-          <button onClick={this.props.createProject}>Submit</button>
         </div>
       </div>
     )
