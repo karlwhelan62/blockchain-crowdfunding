@@ -40,7 +40,7 @@ class CreateProjectPageBody extends Component {
                    name = "projectVideoLink"
                    inputType="text"/>
             <Input handleChange={this.props.handleChange}
-                   labelName="Funding Goal"
+                   labelName="Funding Goal (In Eth)"
                    name = "projectFundingGoal"
                    inputType="number"/>
             <Input handleChange={this.props.handleChange}
