@@ -3,6 +3,20 @@ import React, { Component } from "react"
 
 class Input extends Component {
   render() {
+    if (this.props.inputType === "number") {
+      return (
+        <div>
+          <label>{this.props.labelName}</label>
+          <br/>
+          <input type={this.props.inputType}
+                 step="any"
+                 name={this.props.name}
+                 onChange={this.props.handleChange}
+                 required></input>
+          <hr/>
+        </div>
+      );
+    }
     if (!this.props.minDate) {
       return (
         <div>

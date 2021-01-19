@@ -17,6 +17,7 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.retreiveProjects = this.retreiveProjects.bind(this)
     this.donateToProject = this.donateToProject.bind(this)
+    this.getBalance = this.getBalance.bind(this)
   }
   state = {pagenumber:0,
            projectsMap: null,
@@ -60,6 +61,8 @@ class App extends Component {
       x[i].name = this.state.web3.utils.hexToAscii(x[i].name).replace(/\0/g, '')
       x[i].description = this.state.web3.utils.hexToAscii(x[i].description).replace(/\0/g, '')
       x[i].videoLink = this.state.web3.utils.hexToAscii(x[i].videoLink).replace(/\0/g, '')
+      x[i].fundingGoal = this.state.web3.utils.fromWei(x[i].fundingGoal, 'ether')
+      x[i].amountRaised = this.state.web3.utils.fromWei(x[i].amountRaised, 'ether')
       x[i].projectEndTime = new Date(x[i].projectEndTime * 1000).toLocaleDateString()
       x[i].key = i
     }
@@ -74,13 +77,17 @@ class App extends Component {
     let convertToDate = new Date(this.state.projectLength)
 
     try {
+
+      let weiValue = this.state.web3.utils.toWei(this.state.projectFundingGoal, 'ether')
+      console.log(this.state.contract)
+
       this.state.contract.methods.createProject(
         this.state.web3.utils.asciiToHex(this.state.projectName),
         this.state.web3.utils.asciiToHex(this.state.projectDescription),
         this.state.web3.utils.asciiToHex(this.state.projectVideoLink),
-        this.state.projectFundingGoal,
+        weiValue,
         Math.floor(convertToDate.valueOf() / 1000)).send(
-          {from: this.state.accounts[0], gas:1500000})
+          {from: this.state.accounts[0]})
           .then(f => alert("Project Creation Successful"))
           .catch(err => (
             alert("Project Creation Failed! See console for details"),
@@ -95,9 +102,11 @@ class App extends Component {
   donateToProject = async (projectKey) => {
 
     try {
-      await this.state.contract.methods.donateToProject(
-        this.state.donationAmount, projectKey).send({from: this.state.accounts[0],
-                                                     gas:1500000})
+      let weiValue = this.state.web3.utils.toWei(this.state.donationAmount, 'ether')
+
+      await this.state.contract.methods.donateToProject(projectKey).send(
+        {from: this.state.accounts[0],
+         value: weiValue})
         .then(f => alert("Project Donation Successful"))
         .catch(err => (
           alert("Project Doantion Failed! See console for details"),
@@ -141,6 +150,10 @@ class App extends Component {
     })
   }
 
+  getBalance() {
+    this.state.contract.methods.getContractBalance().call().then(f => console.log(f))
+  }
+
   render() {
 
     if (!this.state.web3) {
@@ -156,6 +169,8 @@ class App extends Component {
           <hr/>
           <h1>Connected to metasmask!</h1>
           <p>Your connected account is: {this.state.accounts[0]}</p>
+          <hr/>
+          <button onClick={this.getBalance}>Get Balance</button>
           <hr/>
         </div>
       )

@@ -1,11 +1,16 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity >=0.4.16 < 0.8.0;
+pragma solidity >=0.6.0 < 0.8.0;
 pragma experimental ABIEncoderV2;
+
+// Importing OpenZeppelin's SafeMath Implementation
+import './SafeMath.sol';
 
 contract Projects{
 
+  using SafeMath for uint256;
   // Defines a refrence type to define a project
   struct Project {
+    address creatorAccount;
     bytes32 name;
     bytes32 description;
     bytes32 videoLink;
@@ -29,11 +34,12 @@ contract Projects{
                          bytes32 _description,
                          bytes32 _videoLink,
                          uint _fundingGoal,
-                         uint _projectEndTime) public returns (bool){
+                         uint _projectEndTime) public payable returns (bool){
 
     numProjects++;
     projects[numProjects] = Project(
        {
+         creatorAccount: msg.sender,
          name: _name,
          description: _description,
          videoLink: _videoLink,
@@ -56,10 +62,14 @@ contract Projects{
     return projectArray;
   }
 
-  function donateToProject(uint x, uint i) public returns (bool){
-    require(block.timestamp <= projects[i + 1].projectEndTime, "Project has ended");
-    projects[i + 1].amountRaised += x;
+  function donateToProject(uint key) public payable returns (bool){
+    require(block.timestamp <= projects[key + 1].projectEndTime, "Project has ended");
+    projects[key + 1].amountRaised = projects[key + 1].amountRaised.add(msg.value);
     return true;
+  }
+
+  function getContractBalance() public view returns (uint) {
+    return address(this).balance;
   }
 
 //  function goalMeet(uint i) view public returns (bool) {

@@ -19,6 +19,8 @@ class ViewProject extends Component {
         <br/>
         <p>amount raised: {this.props.project.amountRaised}</p>
         <br/>
+        <p>owner address: {this.props.project.creatorAccount}</p>
+        <br/>
         <Input handleChange = {this.props.handleChange}
                labelName = "Donation Ammount"
                name = "donationAmount"
