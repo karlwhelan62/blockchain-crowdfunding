@@ -5,12 +5,20 @@ class ViewProject extends Component {
 
   render() {
 
+    let embededdVideoUrl = "https://www.youtube.com/embed/".concat(this.props.project.videoLink)
+
+    console.log(embededdVideoUrl)
+
     return (
       <div className="ProjectObject">
         <h2>{this.props.project.name}</h2>
         <br/>
         <h3>Project Video</h3>
-        <img src="/video-placeholder-graphic.png" alt="Placeholder for Video" />
+        <iframe src={embededdVideoUrl}
+        frameBorder='0'
+        allow='autoplay; encrypted-media'
+        allowFullScreen
+        title='video'/>
         <br/>
         <h3>Project Description</h3>
         <p>{this.props.project.description}</p>

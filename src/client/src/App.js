@@ -80,11 +80,12 @@ class App extends Component {
 
       let weiValue = this.state.web3.utils.toWei(this.state.projectFundingGoal, 'ether')
       console.log(this.state.contract)
+      let videoId =  this.state.projectVideoLink.replace('https://youtu.be/', '')
 
       this.state.contract.methods.createProject(
         this.state.web3.utils.asciiToHex(this.state.projectName),
         this.state.web3.utils.asciiToHex(this.state.projectDescription),
-        this.state.web3.utils.asciiToHex(this.state.projectVideoLink),
+        this.state.web3.utils.asciiToHex(videoId),
         weiValue,
         Math.floor(convertToDate.valueOf() / 1000)).send(
           {from: this.state.accounts[0]})

@@ -124,14 +124,9 @@
   height: 100px;
 }
 
-.ProjectObject img {
-  height: 400px;
+.ProjectObject iframe {
+  height: 425px;
+  width: 750px;
   margin-left: auto;
   margin-right: auto;
-}
-
-.NextArrow {
-  display: block;
-  background: green;
-  right: 100px
 }
