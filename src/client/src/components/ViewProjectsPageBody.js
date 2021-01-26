@@ -1,9 +1,45 @@
 import React, { Component } from "react"
 import ViewProject from "./ViewProject"
+import Slider from 'react-slick'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", right: "100px"}}
+      onClick={onClick}
+    />
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", left: "100px", zIndex: 1 }}
+      onClick={onClick}
+    />
+  );
+}
 
 class ViewProjectsPageBody extends Component {
 
   render() {
+
+    const settings = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      SlidesToScroll: 1,
+      nextArrow: <SampleNextArrow />,
+      prevArrow: <SamplePrevArrow />
+    }
+
     if (!this.props.projectsMap) {
       return (<div>Loading Projects......</div>)
     }
@@ -21,10 +57,10 @@ class ViewProjectsPageBody extends Component {
 
     return (
       <div>
-        <h1>List of Projects</h1>
-        <hr/>
-        {projectsArray}
-        <hr/>
+        <h2>List of Projects</h2>
+        <Slider {...settings}>
+          {projectsArray}
+        </Slider>
       </div>
     )
   }

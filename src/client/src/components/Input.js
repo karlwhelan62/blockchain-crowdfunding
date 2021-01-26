@@ -11,9 +11,9 @@ class Input extends Component {
           <input type={this.props.inputType}
                  step="any"
                  name={this.props.name}
+                 min="0"
                  onChange={this.props.handleChange}
                  required></input>
-          <hr/>
         </div>
       );
     }
@@ -26,7 +26,6 @@ class Input extends Component {
                  name={this.props.name}
                  onChange={this.props.handleChange}
                  required></input>
-          <hr/>
         </div>
       );
     }
@@ -39,7 +38,6 @@ class Input extends Component {
                min={this.props.minDate}
                onChange={this.props.handleChange}
                required></input>
-        <hr/>
       </div>
     );
   }

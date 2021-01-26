@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import Input from "./Input"
+import "../App.css"
 
 class CreateProjectPageBody extends Component {
 
@@ -24,30 +25,31 @@ class CreateProjectPageBody extends Component {
   render() {
     return (
       <div>
-        <h1>Create Project</h1>
+        <p>Enter the deatils of your proposed project bellow.</p>
         <div className="table-responsive">
           <form onSubmit={this.props.createProject}>
             <Input handleChange={this.props.handleChange}
-                   labelName="Project Name"
+                   labelName="The name of your project"
                    name= "projectName"
                    inputType="text"/>
             <Input handleChange={this.props.handleChange}
-                   labelName="Project Description"
+                   labelName="A breif description of the project"
                    name = "projectDescription"
                    inputType="text"/>
             <Input handleChange={this.props.handleChange}
-                   labelName="Video Link"
+                   labelName="A link to your project video"
                    name = "projectVideoLink"
                    inputType="text"/>
             <Input handleChange={this.props.handleChange}
-                   labelName="Funding Goal (In Eth)"
+                   labelName="The funding goal for this project (In Eth)"
                    name = "projectFundingGoal"
                    inputType="number"/>
             <Input handleChange={this.props.handleChange}
-                   labelName="Project Length"
+                   labelName="The end date for the project"
                    name = "projectLength"
                    inputType="date"
                    minDate={this.getTomorrowsDate()}/>
+            <br/>
             <button>Submit</button>
           </form>
         </div>
