@@ -157,21 +157,31 @@ class App extends Component {
   render() {
 
     if (!this.state.web3) {
-      return <div>Loading Web3, accounts, and contract......</div>;
+      return <div className="App">
+              <h2>Loading Web3, accounts, and contract......</h2>
+             </div>;
     }
     if (this.state.pagenumber === 0) {
       return (
         <div className="App">
           <Header />
-          <button onClick={this.handleButton1Click}>Create Project</button>
-          <hr/>
-          <button onClick={this.handleButton2Click}>View Projects</button>
-          <hr/>
-          <h1>Connected to metasmask!</h1>
-          <p>Your connected account is: {this.state.accounts[0]}</p>
-          <hr/>
+          <div className="TextColumn">
+            <p>A fully decentralised crowdfunding platform on the Ethereum blockchain.</p>
+          </div>
+          <div className="ImageColumn">
+            <img src="ethereum-icon-2.jpg" alt="App Logo"/>
+          </div>
+          <div className="MetaMaskInfo">
+            <h2>Connected to metasmask!</h2>
+            <p>Your connected account is: {this.state.accounts[0]}</p>
+          </div>
+          <div className="LeftButtonColumn">
+            <button onClick={this.handleButton1Click}>Create Project</button>
+          </div>
+          <div className="rightButtonColumn">
+            <button onClick={this.handleButton2Click}>View Projects</button>
+          </div>
           <button onClick={this.getBalance}>Get Balance</button>
-          <hr/>
         </div>
       )
     }

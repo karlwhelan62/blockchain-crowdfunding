@@ -1,5 +1,63 @@
 .App {
   text-align: center;
+  background-color: #222629;
+  border: 1px solid transparent;
+  height: 100vh;
+}
+
+.App h2{
+  font-family: 'Droid serif', serif;
+  color:  #86C232;
+}
+
+.App h3{
+  font-family: 'Droid serif', serif;
+  font-style: italic;
+  font-size: 20px;
+  font-weight: 400;
+  color:  #86C232;
+  line-height: 44px;
+}
+
+.App p{
+  font-family: 'Droid sans', sans-serif;
+  color: #6B6E70;
+}
+
+.App button{
+  background-color: #86C232;
+  border: none;
+  outline: none;
+  color: #474B4F;
+  font-weight: 600;
+  border-radius:2em;
+  font-size: 20px;
+  padding: 20px 35px;
+}
+
+.App label{
+  font-family: 'Droid serif', serif;
+  font-style: italic;
+  font-size: 20px;
+  font-weight: 400;
+  color:  #86C232;
+  line-height: 44px;
+}
+
+.App input{
+  height: 30px;
+  font-size: 20px;
+  width: 300px;
+}
+
+.App input[type=number]{
+  background-image: "/ethereum-icon-2.jpg";
+  background-position: 10px 10px;
+}
+
+.App button:hover{
+  background-color: #61892F;
+  color: black;
 }
 
 .App-logo {
@@ -7,32 +65,73 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.HeadingContainer h1 {
+  font-family: 'Droid serif', serif;
+  font-style: italic;
+  font-size: 60px;
+  font-weight: 600;
+  color:  #86C232;
+  line-height: 44px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.TextColumn {
+  height: 200px;
+  width: 50%;
+  float:left;
+  padding-bottom: 100px;
+}
+
+.TextColumn p {
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin: 90px
 }
 
-.App-link {
-  color: #61dafb;
+.ImageColumn {
+  height: 200px;
+  width: 50%;
+  float: right;
+  padding-bottom: 100px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.ImageColumn img{
+  height: 500px;
+}
+
+.LeftButtonColumn {
+  display: block;
+  width: 50%;
+  float: left;
+  padding-bottom: 100px;
+  padding-top: 50px;
+}
+
+.rightButtonColumn {
+  display: block;
+  width: 50%;
+  float: right;
+  padding-bottom: 100px;
+  padding-top: 50px;
+}
+
+.Container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Container div {
+  margin: auto;
+  width: 300px;
+  height: 100px;
+}
+
+.ProjectObject img {
+  height: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.NextArrow {
+  display: block;
+  background: green;
+  right: 100px
 }
