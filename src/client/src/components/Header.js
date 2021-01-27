@@ -4,7 +4,7 @@ import "./Header.css"
 class Header extends Component {
   render() {
     return (
-      <header className="navbar">
+      <header data-testid="Header" className="navbar">
        <title>Crowdfunding DApp</title>
        <div className ="HeadingContainer">
          <h1>Blockchain Crowdfunding</h1>

@@ -5,7 +5,7 @@ class Input extends Component {
   render() {
     if (this.props.inputType === "number") {
       return (
-        <div>
+        <div data-testid = "NumberInput">
           <label>{this.props.labelName}</label>
           <br/>
           <input type={this.props.inputType}
@@ -19,7 +19,7 @@ class Input extends Component {
     }
     if (!this.props.minDate) {
       return (
-        <div>
+        <div data-testid = "TextInput">
           <label>{this.props.labelName}</label>
           <br/>
           <input type={this.props.inputType}
@@ -30,7 +30,7 @@ class Input extends Component {
       );
     }
     return (
-      <div>
+      <div data-testid = "DateInput">
         <label>{this.props.labelName}</label>
         <br/>
         <input type={this.props.inputType}

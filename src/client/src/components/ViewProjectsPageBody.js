@@ -41,7 +41,7 @@ class ViewProjectsPageBody extends Component {
     }
 
     if (!this.props.projectsMap) {
-      return (<div>Loading Projects......</div>)
+      return (<div data-testid="ViewProjectsNoMap">Loading Projects......</div>)
     }
 
     let projectsArray = []
@@ -56,7 +56,7 @@ class ViewProjectsPageBody extends Component {
     //  <ViewProject project={project} />)
 
     return (
-      <div>
+      <div data-testid="ViewProjects">
         <h2>List of Projects</h2>
         <Slider {...settings}>
           {projectsArray}

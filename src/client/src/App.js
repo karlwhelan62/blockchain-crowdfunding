@@ -158,13 +158,13 @@ class App extends Component {
   render() {
 
     if (!this.state.web3) {
-      return <div className="App">
+      return <div data-testid="NoWeb3" className="App">
               <h2>Loading Web3, accounts, and contract......</h2>
              </div>;
     }
     if (this.state.pagenumber === 0) {
       return (
-        <div className="App">
+        <div data-testid="Homepage" className="App">
           <Header />
           <div className="TextColumn">
             <p>A fully decentralised crowdfunding platform on the Ethereum blockchain.</p>
@@ -188,7 +188,7 @@ class App extends Component {
     }
     if (this.state.pagenumber === 1) {
       return (
-        <div className="App">
+        <div dataclassName="App">
           <Header />
           <button onClick={this.handleButton1Click}>Back</button>
           <CreateProjectPageBody createProject={this.createProject}
