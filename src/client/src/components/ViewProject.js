@@ -7,10 +7,8 @@ class ViewProject extends Component {
 
     let embededdVideoUrl = "https://www.youtube.com/embed/".concat(this.props.project.videoLink)
 
-    console.log(embededdVideoUrl)
-
     return (
-      <div className="ProjectObject">
+      <div data-testid="ProjectObject" className="ProjectObject">
         <h2>{this.props.project.name}</h2>
         <br/>
         <h3>Project Video</h3>

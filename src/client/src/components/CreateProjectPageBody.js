@@ -24,7 +24,7 @@ class CreateProjectPageBody extends Component {
 
   render() {
     return (
-      <div>
+      <div data-testid="CreateProjectPage">
         <p>Enter the deatils of your proposed project bellow.</p>
         <div className="table-responsive">
           <form onSubmit={this.props.createProject}>
