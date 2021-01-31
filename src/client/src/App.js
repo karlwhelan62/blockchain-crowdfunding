@@ -79,7 +79,6 @@ class App extends Component {
     try {
 
       let weiValue = this.state.web3.utils.toWei(this.state.projectFundingGoal, 'ether')
-      console.log(this.state.contract)
       let videoId =  this.state.projectVideoLink.replace('https://youtu.be/', '')
 
       this.state.contract.methods.createProject(
@@ -188,7 +187,7 @@ class App extends Component {
     }
     if (this.state.pagenumber === 1) {
       return (
-        <div dataclassName="App">
+        <div className="App">
           <Header />
           <button onClick={this.handleButton1Click}>Back</button>
           <CreateProjectPageBody createProject={this.createProject}
