@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from "react";
 
 
 class Input extends Component {
@@ -6,10 +6,11 @@ class Input extends Component {
     if (this.props.inputType === "number") {
       return (
         <div data-testid = "NumberInput">
-          <label>{this.props.labelName}</label>
+          <label htmlFor={this.props.name}>{this.props.labelName}</label>
           <br/>
           <input type={this.props.inputType}
                  step="any"
+                 id={this.props.name}
                  name={this.props.name}
                  min="0"
                  onChange={this.props.handleChange}
@@ -20,9 +21,10 @@ class Input extends Component {
     if (!this.props.minDate) {
       return (
         <div data-testid = "TextInput">
-          <label>{this.props.labelName}</label>
+          <label htmlFor={this.props.name}>{this.props.labelName}</label>
           <br/>
           <input type={this.props.inputType}
+                 id={this.props.name}
                  name={this.props.name}
                  onChange={this.props.handleChange}
                  required></input>
@@ -31,9 +33,10 @@ class Input extends Component {
     }
     return (
       <div data-testid = "DateInput">
-        <label>{this.props.labelName}</label>
+        <label htmlFor={this.props.name}>{this.props.labelName}</label>
         <br/>
         <input type={this.props.inputType}
+               id = {this.props.name}
                name={this.props.name}
                min={this.props.minDate}
                onChange={this.props.handleChange}
@@ -43,4 +46,4 @@ class Input extends Component {
   }
 }
 
-export default Input
+export default Input;

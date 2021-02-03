@@ -8,15 +8,22 @@ const TestProject = {videoLink: "link",
                      name: "name",
                      description: "description",
                      fundingGoal: 10,
-                     projectEndTime: "10/02/21"}
+                     projectEndTime: "10/02/21"};
 
 afterEach(cleanup)
 it("renders without crashing", () => {
   const div = document.createElement("div");
-  ReactDOM.render(<ViewProject project = {TestProject} />, div)
+  ReactDOM.render(<ViewProject project = {TestProject} />, div);
 })
 
 it("renders project object correctly", () => {
-  const {getByTestId} = render(<ViewProject project = {TestProject}/>);
-  expect(getByTestId('ProjectObject')).toHaveTextContent
+  const { getByTestId, getByText } = render(<ViewProject project = {TestProject}/>);
+
+  expect(getByTestId('ProjectObject')).toHaveTextContent;
+  expect(getByText("Project Video")).not.toBeNull();
+  expect(getByText("Project Description")).not.toBeNull();
+  expect(getByText("Funding Goal")).not.toBeNull();
+  expect(getByText("Amount Pledged")).not.toBeNull();
+  expect(getByText("End Date")).not.toBeNull();
+  expect(getByText("Donate")).not.toBeNull();
 })
