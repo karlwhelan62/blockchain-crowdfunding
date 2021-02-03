@@ -18,19 +18,19 @@ class App extends Component {
     this.retreiveProjects = this.retreiveProjects.bind(this)
     this.donateToProject = this.donateToProject.bind(this)
     this.getBalance = this.getBalance.bind(this)
+    this.state = {pagenumber:0,
+             projectsMap: null,
+             web3: null,
+             accounts:null,
+             contracts:null,
+             donationAmount: null,
+             doantionKey: null,
+             projectName: "",
+             projectDescription: "",
+             projectVideoLink: "",
+             projectFundingGoal: 0,
+             projectLength: 0};
   }
-  state = {pagenumber:0,
-           projectsMap: null,
-           web3: null,
-           accounts:null,
-           contracts:null,
-           donationAmount: null,
-           doantionKey: null,
-           projectName: "",
-           projectDescription: "",
-           projectVideoLink: "",
-           projectFundingGoal: 0,
-           projectLength: 0};
 
   // executed once when the app loads
   componentDidMount = async () => {
@@ -172,7 +172,7 @@ class App extends Component {
             <img src="ethereum-icon-2.jpg" alt="App Logo"/>
           </div>
           <div className="MetaMaskInfo">
-            <h2>Connected to metasmask!</h2>
+            <h2>Connected to blockchain!</h2>
             <p>Your connected account is: {this.state.accounts[0]}</p>
           </div>
           <div className="LeftButtonColumn">
