@@ -58,6 +58,10 @@ class ViewProjectsPageBody extends Component {
     return (
       <div data-testid="ViewProjects">
         <h2>List of Projects</h2>
+        {this.props.willShowLoader && <span>
+                                          <h2>Block Mining..........</h2>
+                                          <div class="loader"></div>
+                                      </span>}
         <Slider {...settings}>
           {projectsArray}
         </Slider>

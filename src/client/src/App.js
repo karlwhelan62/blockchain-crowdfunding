@@ -19,17 +19,17 @@ class App extends Component {
     this.donateToProject = this.donateToProject.bind(this)
     this.getBalance = this.getBalance.bind(this)
     this.state = {pagenumber:0,
-             projectsMap: null,
-             web3: null,
-             accounts:null,
-             contracts:null,
-             donationAmount: null,
-             doantionKey: null,
-             projectName: "",
-             projectDescription: "",
-             projectVideoLink: "",
-             projectFundingGoal: 0,
-             projectLength: 0};
+                  projectsMap: null,
+                  web3: null,
+                  accounts:null,
+                  contracts:null,
+                  donationAmount: null,
+                  projectName: "",
+                  projectDescription: "",
+                  projectVideoLink: "",
+                  projectFundingGoal: 0,
+                  projectLength: 0,
+                  willShowLoader: false};
   }
 
   // executed once when the app loads
@@ -88,10 +88,13 @@ class App extends Component {
         weiValue,
         Math.floor(convertToDate.valueOf() / 1000)).send(
           {from: this.state.accounts[0]})
+          .then(this.setState({willShowLoader: true})) 
+          .then(f => this.setState({willShowLoader: false}))
           .then(f => alert("Project Creation Successful"))
           .catch(err => (
             alert("Project Creation Failed! See console for details"),
-            console.log(err)
+            console.log(err),
+            this.setState({willShowLoader: false})
           ))
     } catch(error) {
       alert("project Creation Failed! See console for details")
@@ -100,17 +103,20 @@ class App extends Component {
   }
 
   donateToProject = async (projectKey) => {
-
     try {
+
       let weiValue = this.state.web3.utils.toWei(this.state.donationAmount, 'ether')
 
       await this.state.contract.methods.donateToProject(projectKey).send(
         {from: this.state.accounts[0],
          value: weiValue})
+        .then(this.setState({willShowLoader: true}))
+        .then(f => this.setState({willShowLoader: false}))
         .then(f => alert("Project Donation Successful"))
         .catch(err => (
           alert("Project Doantion Failed! See console for details"),
-          console.log(err)
+          console.log(err),
+          this.setState({willShowLoader: false})
         ))
     } catch(error) {
       alert("Project Donation Failed! See console for details")
@@ -191,7 +197,8 @@ class App extends Component {
           <Header />
           <button onClick={this.handleButton1Click}>Back</button>
           <CreateProjectPageBody createProject={this.createProject}
-                                 handleChange={this.handleChange}/>
+                                 handleChange={this.handleChange}
+                                 willShowLoader={this.state.willShowLoader}/>
         </div>
       );
     }
@@ -201,7 +208,8 @@ class App extends Component {
         <button onClick={this.handleButton2Click}>Back</button>
         <ViewProjectsPageBody projectsMap={this.state.projectsMap}
                               donateToProject={this.donateToProject}
-                              handleChange={this.handleChange}/>
+                              handleChange={this.handleChange}
+                              willShowLoader={this.state.willShowLoader}/>
       </div>
     )
   }
