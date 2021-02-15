@@ -97,22 +97,6 @@
   height: 500px;
 }
 
-.LeftButtonColumn {
-  display: block;
-  width: 50%;
-  float: left;
-  padding-bottom: 100px;
-  padding-top: 50px;
-}
-
-.rightButtonColumn {
-  display: block;
-  width: 50%;
-  float: right;
-  padding-bottom: 100px;
-  padding-top: 50px;
-}
-
 .Container {
   display: flex;
   justify-content: space-between;

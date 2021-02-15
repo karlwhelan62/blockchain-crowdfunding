@@ -11,14 +11,15 @@ import "./App.css";
 class App extends Component {
   constructor() {
     super()
-    this.handleButton1Click = this.handleButton1Click.bind(this)
-    this.handleButton2Click = this.handleButton2Click.bind(this)
+    this.handlePageChange = this.handlePageChange.bind(this)
+    this.handleBurgerMenuClick = this.handleBurgerMenuClick.bind(this)
     this.createProject = this.createProject.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.retreiveProjects = this.retreiveProjects.bind(this)
     this.donateToProject = this.donateToProject.bind(this)
     this.getBalance = this.getBalance.bind(this)
-    this.state = {pagenumber:0,
+    this.state = {currentPage: 'Home',
+                  burgerMenuClicked: false,
                   projectsMap: null,
                   web3: null,
                   accounts:null,
@@ -88,7 +89,7 @@ class App extends Component {
         weiValue,
         Math.floor(convertToDate.valueOf() / 1000)).send(
           {from: this.state.accounts[0]})
-          .then(this.setState({willShowLoader: true})) 
+          .then(this.setState({willShowLoader: true}))
           .then(f => this.setState({willShowLoader: false}))
           .then(f => alert("Project Creation Successful"))
           .catch(err => (
@@ -129,23 +130,18 @@ class App extends Component {
     this.retreiveProjects()
   }
 
-
-  handleButton1Click() {
-    this.setState(prevState => {
-      if(prevState.pagenumber === 0) {
-        return {pagenumber: 1}
-      }
-      return {pagenumber: 0}
+  handlePageChange(newPage) {
+    if (newPage === "ViewProject") {
+      this.retreiveProjects()
+    }
+    this.setState({
+      currentPage: newPage
     })
   }
 
-  handleButton2Click() {
-    this.setState(prevState => {
-      if(prevState.pagenumber === 0) {
-        this.retreiveProjects()
-        return {pagenumber: 2}
-      }
-      return {pagenumber: 0}
+  handleBurgerMenuClick(bool) {
+    this.setState({
+      burgerMenuClicked: bool
     })
   }
 
@@ -167,10 +163,13 @@ class App extends Component {
               <h2>Loading Web3, accounts, and contract......</h2>
              </div>;
     }
-    if (this.state.pagenumber === 0) {
+    if (this.state.currentPage === 'Home') {
       return (
         <div data-testid="Homepage" className="App">
-          <Header />
+          <Header handlePageChange={this.handlePageChange}
+                  handleBurgerMenuClick={this.handleBurgerMenuClick}
+                  currentPage={this.state.currentPage}
+                  burgerMenuClicked={this.state.burgerMenuClicked}/>
           <div className="TextColumn">
             <p>A fully decentralised crowdfunding platform on the Ethereum blockchain.</p>
           </div>
@@ -181,21 +180,17 @@ class App extends Component {
             <h2>Connected to blockchain!</h2>
             <p>Your connected account is: {this.state.accounts[0]}</p>
           </div>
-          <div className="LeftButtonColumn">
-            <button onClick={this.handleButton1Click}>Create Project</button>
-          </div>
-          <div className="rightButtonColumn">
-            <button onClick={this.handleButton2Click}>View Projects</button>
-          </div>
           <button onClick={this.getBalance}>Get Balance</button>
         </div>
       )
     }
-    if (this.state.pagenumber === 1) {
+    if (this.state.currentPage === "CreateProject") {
       return (
         <div className="App">
-          <Header />
-          <button onClick={this.handleButton1Click}>Back</button>
+          <Header handlePageChange={this.handlePageChange}
+                  handleBurgerMenuClick={this.handleBurgerMenuClick}
+                  currentPage={this.state.currentPage}
+                  burgerMenuClicked={this.state.burgerMenuClicked}/>
           <CreateProjectPageBody createProject={this.createProject}
                                  handleChange={this.handleChange}
                                  willShowLoader={this.state.willShowLoader}/>
@@ -204,8 +199,10 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <Header />
-        <button onClick={this.handleButton2Click}>Back</button>
+        <Header handlePageChange={this.handlePageChange}
+                handleBurgerMenuClick={this.handleBurgerMenuClick}
+                currentPage={this.state.currentPage}
+                burgerMenuClicked={this.state.burgerMenuClicked}/>
         <ViewProjectsPageBody projectsMap={this.state.projectsMap}
                               donateToProject={this.donateToProject}
                               handleChange={this.handleChange}
