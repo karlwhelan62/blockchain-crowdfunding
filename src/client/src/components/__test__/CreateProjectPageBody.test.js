@@ -18,20 +18,20 @@ it("renders create project page component correctly", () => {
   expect(getByTestId('CreateProjectPage')).toHaveTextContent
 
   expect(getByText(
-    "Enter the deatils of your proposed project bellow.")).not.toBeNull();
+    "Create Project Form")).not.toBeNull();
 
   // Name input
-  expect(getByLabelText("The name of your project")).not.toBeNull();
+  expect(getByLabelText("Project Name")).not.toBeNull();
 
   // Description input
-  expect(getByLabelText("A breif description of the project")).not.toBeNull();
+  expect(getByLabelText("Video Link")).not.toBeNull();
 
   // Video link input
-  expect(getByLabelText("A link to your project video")).not.toBeNull();
+  expect(getByLabelText("Funding Goal (Eth)")).not.toBeNull();
 
   // Funding goal input
-  expect(getByLabelText("The funding goal for this project (In Eth)")).not.toBeNull();
+  expect(getByLabelText("End Date")).not.toBeNull();
 
   // End date input
-  expect(getByLabelText("The end date for the project")).not.toBeNull();
+  expect(getByLabelText("Project Description")).not.toBeNull();
 })
