@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import Input from "./Input"
-import "../App.css"
+import "./CreateProjectPageBody.css"
 
 class CreateProjectPageBody extends Component {
 
@@ -25,37 +25,44 @@ class CreateProjectPageBody extends Component {
   render() {
     return (
       <div data-testid="CreateProjectPage">
-      {this.props.willShowLoader && <span>
+      {this.props.willShowLoader && <span className="loader-wrapper">
                                         <h2>Block Mining..........</h2>
                                         <div class="loader"></div>
                                     </span>}
-        <p>Enter the deatils of your proposed project bellow.</p>
-        <div className="table-responsive">
-          <form onSubmit={this.props.createProject}>
-            <Input handleChange={this.props.handleChange}
-                   labelName="The name of your project"
-                   name= "projectName"
-                   inputType="text"/>
-            <Input handleChange={this.props.handleChange}
-                   labelName="A breif description of the project"
-                   name = "projectDescription"
-                   inputType="text"/>
-            <Input handleChange={this.props.handleChange}
-                   labelName="A link to your project video"
-                   name = "projectVideoLink"
-                   inputType="text"/>
-            <Input handleChange={this.props.handleChange}
-                   labelName="The funding goal for this project (In Eth)"
-                   name = "projectFundingGoal"
-                   inputType="number"/>
-            <Input handleChange={this.props.handleChange}
-                   labelName="The end date for the project"
-                   name = "projectLength"
-                   inputType="date"
-                   minDate={this.getTomorrowsDate()}/>
-            <br/>
-            <button>Submit</button>
-          </form>
+        <div className="wrapper">
+          <div className="title">
+            <h1>Create Project Form</h1>
+          </div>
+          <div className="table-responsive">
+            <form className="project-form" onSubmit={this.props.createProject}>
+              <div className="small-input-feilds">
+                <Input handleChange={this.props.handleChange}
+                       labelName="Project Name"
+                       name= "projectName"
+                       inputType="text"/>
+                <Input handleChange={this.props.handleChange}
+                       labelName="Video Link"
+                       name = "projectVideoLink"
+                       inputType="text"/>
+                <Input handleChange={this.props.handleChange}
+                       labelName="Funding Goal (Eth)"
+                       name = "projectFundingGoal"
+                       inputType="number"/>
+                <Input handleChange={this.props.handleChange}
+                       labelName="End Date"
+                       name = "projectLength"
+                       inputType="date"
+                       minDate={this.getTomorrowsDate()}/>
+              </div>
+              <div className="large-input-feild">
+                <Input handleChange={this.props.handleChange}
+                       labelName="Project Description"
+                       name = "projectDescription"
+                       inputType="text"/>
+                <button>Submit</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     )
