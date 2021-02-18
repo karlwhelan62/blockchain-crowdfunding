@@ -76,7 +76,7 @@ describe("App", () => {
       }
     };
 
-    let wrapper = shallow(<App />);
+    let wrapper = mount(<App />);
 
     // inject mock web3 and check if we are on the right page by looking for
     // text that page contains
@@ -86,8 +86,10 @@ describe("App", () => {
 
     wrapper.update()
 
-    // simulate a user clicking the button to navagate to the create project page
-    wrapper.find('button').first().simulate('click')
+    expect(wrapper.exists('HomePage')).toBe(true)
+
+    // simulate a user clicking the navbar to navagate to the create project page
+    wrapper.find('li').at(1).simulate('click')
 
     wrapper.update()
 
@@ -96,7 +98,7 @@ describe("App", () => {
     expect(wrapper.exists('ViewProjectsPageBody')).toBe(false)
 
     // simulate a user clicking a button to return to the homepage
-    wrapper.find('button').first().simulate('click')
+    wrapper.find('li').first().simulate('click')
 
     wrapper.update()
 
@@ -104,7 +106,7 @@ describe("App", () => {
     expect(wrapper.text().includes("Connected to blockchain!")).toBe(true)
 
     // simulate a user clicking a button to navagate to the view projects page
-    wrapper.find('button').at(1).simulate('click')
+    wrapper.find('li').at(2).simulate('click')
 
     // check we are on the right page by seeing if corrrect component exists
     expect(wrapper.exists('CreateProjectPageBody')).toBe(false)
