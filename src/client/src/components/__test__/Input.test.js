@@ -10,6 +10,11 @@ it("renders without crashing", () => {
   ReactDOM.render(<Input />, div);
 })
 
+it("renders description input component correctly", () => {
+  const { getByTestId } = render(<Input labelName="Project Description"/>);
+  expect(getByTestId('description-input')).toHaveTextContent;
+})
+
 it("renders text input component correctly", () => {
   const { getByTestId } = render(<Input />);
   expect(getByTestId('TextInput')).toHaveTextContent;

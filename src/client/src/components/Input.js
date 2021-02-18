@@ -5,7 +5,7 @@ class Input extends Component {
   render() {
     if (this.props.labelName === "Project Description") {
       return (
-        <div>
+        <div data-testid="description-input">
           <label htmlFor={this.props.name}>{this.props.labelName}</label>
           <ToolTipIcon labelName={this.props.labelName}/>
           <textarea type={this.props.inputType}

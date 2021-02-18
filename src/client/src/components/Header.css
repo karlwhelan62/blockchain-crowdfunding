@@ -68,7 +68,6 @@ body {
     cursor: pointer;
   }
 
-
   .navbar {
     margin-top: 1rem;
     flex-direction: column;
@@ -77,11 +76,11 @@ body {
 
   .navbarLinks {
     display: none;
-    width: 95%;
+    width: 100%;
   }
 
   .navbarLinks ul {
-    width: 90%;
+    width: 95%;
   }
 
   .navbarLinks li {

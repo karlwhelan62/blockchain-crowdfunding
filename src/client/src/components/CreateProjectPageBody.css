@@ -4,7 +4,7 @@
 
 .wrapper {
   position: absolute;
-  top: 40%;
+  top: 38%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
@@ -96,6 +96,10 @@
 }
 
 @media (max-width: 800px) {
+
+  .wrapper {
+    top: 42%;
+  }
 
   .project-form {
       flex-direction: column;
