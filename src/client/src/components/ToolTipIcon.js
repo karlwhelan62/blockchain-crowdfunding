@@ -12,7 +12,8 @@ class ToolTipIcon extends Component {
       "Video Link": "This is a link to your project video. Only accepts youtube links currently.",
       "Funding Goal (Eth)": "This is your final funding goal in Ether. When this goal is reached the raised funds will be paid to your account.",
       "End Date": "This is date by which you aim to raise your funding goal. If the goal is not reached by this date the project will end and raised funds will be returned to the pledgers.",
-      "Project Description": "Please provide a brief (<= 300 character) description of your project."
+      "Project Description": "Please provide a brief (<= 300 character) description of your project.",
+      "Donation Amount": "This is the amount, in ether, that you pledge to donate to this project if the funding goal is reached by the end date of the project. If the project ends before that date your funds will be returned to you."
     }
 
     return (

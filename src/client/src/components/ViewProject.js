@@ -9,8 +9,10 @@ class ViewProject extends Component {
 
     return (
       <div data-testid="ProjectObject" className="ProjectObject">
-        <h2>{this.props.project.name}</h2>
-        <br/>
+        <div className="project-name-wrapper">
+          <h2>Project Name</h2>
+          <h4>{this.props.project.name}</h4>
+        </div>
         <h3>Project Video</h3>
         <iframe src={embededdVideoUrl}
         frameBorder='0'
@@ -21,7 +23,7 @@ class ViewProject extends Component {
         <h3>Project Description</h3>
         <p>{this.props.project.description}</p>
         <br/>
-        <div className="Container">
+        <div className="project-info-wrapper">
           <div>
             <h3>Funding Goal</h3>
             <p>{this.props.project.fundingGoal} Eth</p>
@@ -37,7 +39,7 @@ class ViewProject extends Component {
         </div>
         <br/>
         <Input handleChange = {this.props.handleChange}
-               labelName = "Donation Ammount"
+               labelName = "Donation Amount"
                name = "donationAmount"
                inputType = "number"/>
         <br/>

@@ -48,7 +48,6 @@ it("renders view projects component correctly with 1 project in the array", () =
                                 projectsMap = {TestProjectMapOneElement}/>);
 
   expect(getByTestId('ViewProjects')).toHaveTextContent;
-  expect(getByText("List of Projects")).not.toBeNull();
 })
 
 it("renders view projects component correctly with more than 1 project in the array", () => {
@@ -56,5 +55,4 @@ it("renders view projects component correctly with more than 1 project in the ar
                                 projectsMap = {TestProjectMapThreeElements}/>);
 
   expect(getByTestId('ViewProjects')).toHaveTextContent;
-  expect(getByText("List of Projects")).not.toBeNull();
 })

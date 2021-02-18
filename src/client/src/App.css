@@ -18,18 +18,19 @@
 }
 
 .App h2{
-  font-family: 'Droid serif', serif;
+  font-family: 'Roboto', serif;
   color:  #86C232;
+  font-weight: lighter;
 }
 
 .App h3{
-  font-family: 'Droid serif', serif;
-  font-style: italic;
+  font-family: 'Roboto', serif;
   font-size: 20px;
   font-weight: 400;
   color:  #86C232;
   line-height: 44px;
 }
+
 
 .App p{
   font-family: 'Roboto', sans-serif;
@@ -75,24 +76,6 @@
   font-weight: 600;
   color:  #86C232;
   line-height: 44px;
-}
-
-.Container {
-  display: flex;
-  justify-content: space-between;
-}
-
-.Container div {
-  margin: auto;
-  width: 300px;
-  height: 100px;
-}
-
-.ProjectObject iframe {
-  height: 425px;
-  width: 750px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .loader {
