@@ -60,7 +60,7 @@ class ViewProjectsPageBody extends Component {
         <h2>List of Projects</h2>
         {this.props.willShowLoader && <span>
                                           <h2>Block Mining..........</h2>
-                                          <div class="loader"></div>
+                                          <div className="loader"></div>
                                       </span>}
         <Slider {...settings}>
           {projectsArray}

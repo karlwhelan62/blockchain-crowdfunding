@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Projects from './contract/Projects.json'
 import getWeb3 from "./getWeb3"
 import Header from "./components/Header"
+import HomePage from "./components/HomePage"
 import CreateProjectPageBody from "./components/CreateProjectPageBody"
 import ViewProjectsPageBody from "./components/ViewProjectsPageBody"
 
@@ -20,6 +21,7 @@ class App extends Component {
     this.getBalance = this.getBalance.bind(this)
     this.state = {currentPage: 'Home',
                   burgerMenuClicked: false,
+                  totalEthAmount: null,
                   projectsMap: null,
                   web3: null,
                   accounts:null,
@@ -47,6 +49,7 @@ class App extends Component {
       );
 
       this.setState({ web3, accounts, contract: instance });
+      this.getBalance();
     } catch(error) {
       // catch errors
       alert(
@@ -134,6 +137,9 @@ class App extends Component {
     if (newPage === "ViewProject") {
       this.retreiveProjects()
     }
+    if (newPage === "Home") {
+      this.getBalance()
+    }
     this.setState({
       currentPage: newPage
     })
@@ -153,7 +159,11 @@ class App extends Component {
   }
 
   getBalance() {
-    this.state.contract.methods.getContractBalance().call().then(f => console.log(f))
+    this.state.contract.methods.getContractBalance().call().then(
+      f => this.setState({
+        totalEthAmount: this.state.web3.utils.fromWei(f, 'ether')
+      })
+    )
   }
 
   render() {
@@ -165,22 +175,14 @@ class App extends Component {
     }
     if (this.state.currentPage === 'Home') {
       return (
-        <div data-testid="Homepage" className="App">
+        <div className="App">
           <Header handlePageChange={this.handlePageChange}
                   handleBurgerMenuClick={this.handleBurgerMenuClick}
                   currentPage={this.state.currentPage}
                   burgerMenuClicked={this.state.burgerMenuClicked}/>
-          <div className="TextColumn">
-            <p>A fully decentralised crowdfunding platform on the Ethereum blockchain.</p>
-          </div>
-          <div className="ImageColumn">
-            <img src="ethereum-icon-2.jpg" alt="App Logo"/>
-          </div>
-          <div className="MetaMaskInfo">
-            <h2>Connected to blockchain!</h2>
-            <p>Your connected account is: {this.state.accounts[0]}</p>
-          </div>
-          <button onClick={this.getBalance}>Get Balance</button>
+          <HomePage account={this.state.accounts[0]}
+                    getBalance={this.getBalance}
+                    totalEthAmount={this.state.totalEthAmount} />
         </div>
       )
     }
