@@ -35,12 +35,23 @@
   width: 48%;
 }
 
-.info-icon {
+.small-input-feilds .info-icon {
   color: #86C232;
   float: left;
+  cursor: help;
 }
 
-.info-icon:hover {
+.small-input-feilds .info-icon:hover {
+  color: #61892F;
+}
+
+.large-input-feild .info-icon {
+  color: #86C232;
+  float: left;
+  cursor: help;
+}
+
+.large-input-feild .info-icon:hover {
   color: #61892F;
 }
 

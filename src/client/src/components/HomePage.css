@@ -84,6 +84,12 @@
 
   .top-left-wrapper {
     width: 100%;
+    height: 240px;
+  }
+
+  .top-left-wrapper .app-info {
+    height: 40%;
+    margin-top: 80px;
   }
 
   .top-right-wrapper {

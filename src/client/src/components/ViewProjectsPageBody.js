@@ -3,6 +3,7 @@ import ViewProject from "./ViewProject"
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "./ViewProjectsPageBody.css"
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -57,7 +58,6 @@ class ViewProjectsPageBody extends Component {
 
     return (
       <div data-testid="ViewProjects">
-        <h2>List of Projects</h2>
         {this.props.willShowLoader && <span>
                                           <h2>Block Mining..........</h2>
                                           <div className="loader"></div>

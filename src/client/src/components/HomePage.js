@@ -32,7 +32,7 @@ class HomePage extends Component {
                 <h2>Secure</h2>
                 <MdSecurity className="icon" />
               </div>
-              <p>Ethreum is a large, decentralised and encrypted network. This keeps funds safe from malicious attacks and protects the platform form single point of failure</p>
+              <p>Ethreum is a large, decentralised and encrypted network. This keeps funds safe from malicious attacks and protects the platform from single point of failure</p>
             </div>
           </div>
           <div className="middle-center-wrapper">
