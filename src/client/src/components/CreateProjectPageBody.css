@@ -1,0 +1,134 @@
+.loader-wrapper {
+  padding-bottom: 30px;
+}
+
+.wrapper {
+  margin: auto;
+  margin-top: 50px;
+  width: 100%;
+  max-width: 700px;
+  background: #474B4F;
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.wrapper .title h1{
+  color: #86C232;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.project-form {
+  display: flex;
+}
+
+.small-input-feilds {
+  display: flex;
+  flex-direction: column;
+  margin-right: 5%;
+  width: 48%;
+}
+
+.large-input-feild {
+  width: 48%;
+}
+
+.small-input-feilds .info-icon {
+  color: #86C232;
+  float: left;
+  cursor: help;
+}
+
+.small-input-feilds .info-icon:hover {
+  color: #61892F;
+}
+
+.large-input-feild .info-icon {
+  color: #86C232;
+  float: left;
+  cursor: help;
+}
+
+.large-input-feild .info-icon:hover {
+  color: #61892F;
+}
+
+.project-form input {
+  margin: 10px 0;
+  background: transparent;
+  border: 0px;
+  border-bottom: 2px solid whitesmoke;
+  padding: 10px;
+  color: whitesmoke;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.project-form textarea {
+  height: 280px;
+  font-size: 20px;
+  margin: 10px 0;
+  background: transparent;
+  border: 0px;
+  border-bottom: 2px solid whitesmoke;
+  padding: 10px;
+  color: whitesmoke;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.project-form label {
+  font-size: 20px;
+  font-weight: 200;
+  color:  #86C232;
+  float: left;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.table-responsive button {
+  background: #86C232;
+  float: right;
+  padding: 15px;
+  border-radius: 5px;
+  color: whitesmoke;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.tooltip {
+  float: left;
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+@media (max-width: 800px) {
+
+  .wrapper {
+    top: 42%;
+  }
+
+  .project-form {
+      flex-direction: column;
+  }
+
+  .project-form textarea {
+    height: 200px;
+  }
+
+  .small-input-feilds {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .small-input-feilds input {
+    float: right;
+  }
+
+
+  .large-input-feild {
+    width: 100%;
+  }
+}

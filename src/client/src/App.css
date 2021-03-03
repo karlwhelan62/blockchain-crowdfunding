@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+*{
+  box-sizing: border-box;
+  outline: none;
+  font-family: 'Roboto', sans-serif;
+}
+
+
+.App {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+  height: max(1300px, 100vh);
+  background-color: #222629;
+  border: 1px solid transparent;
+}
+
+.App h2{
+  font-family: 'Roboto', serif;
+  color:  #86C232;
+  font-weight: lighter;
+}
+
+.App h3{
+  font-family: 'Roboto', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color:  #86C232;
+  line-height: 44px;
+}
+
+
+.App p{
+  font-family: 'Roboto', sans-serif;
+  color: whitesmoke;
+}
+
+.App button{
+  background-color: #86C232;
+  border: none;
+  outline: none;
+  color: #474B4F;
+  font-weight: 600;
+  border-radius:2em;
+  font-size: 20px;
+  padding: 20px 35px;
+}
+
+.App input{
+  height: 30px;
+  font-size: 20px;
+  width: 300px;
+}
+
+.App input[type=number]{
+  background-image: "/ethereum-icon-2.jpg";
+  background-position: 10px 10px;
+}
+
+.App button:hover{
+  background-color: #61892F;
+  color: black;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.HeadingContainer h1 {
+  font-family: 'Droid serif', serif;
+  font-style: italic;
+  font-size: 60px;
+  font-weight: 600;
+  color:  #86C232;
+  line-height: 44px;
+}
+
+.loader {
+  z-index: 0;
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid  #86C232;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: spin 2s linear infinite;
+  margin-bottom: 30px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 800px) {
+
+  .App {
+    height: 1800px;
+  }
+}
