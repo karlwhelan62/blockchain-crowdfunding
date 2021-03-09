@@ -10,13 +10,14 @@ contract Projects{
   using SafeMath for uint256;
   // Defines a refrence type to define a project
   struct Project {
-    address creatorAccount;
+    address payable creatorAccount;
     bytes32 name;
     bytes32 description;
     bytes32 videoLink;
     uint fundingGoal;
     uint amountRaised;
     uint projectEndTime;
+    bool projectHasEnded;
   }
 
   // number of projectsTabl
@@ -45,7 +46,8 @@ contract Projects{
          videoLink: _videoLink,
          fundingGoal: _fundingGoal,
          amountRaised: 0,
-         projectEndTime: _projectEndTime
+         projectEndTime: _projectEndTime,
+         projectHasEnded: false
        }
     );
     return true;
@@ -63,8 +65,34 @@ contract Projects{
   }
 
   function donateToProject(uint key) public payable returns (bool){
-    require(block.timestamp <= projects[key + 1].projectEndTime, "Project has ended");
+    if (hasProjectEndDateBeenReached(key)) {
+      projects[key + 1].projectHasEnded = true;
+      return false;
+    }
     projects[key + 1].amountRaised = projects[key + 1].amountRaised.add(msg.value);
+    if (hasFundingGoalBeenReached(key)) {
+      projects[key + 1].projectHasEnded = true;
+      payOutToProjectCreator(key);
+    }
+    return true;
+  }
+
+  function hasProjectEndDateBeenReached(uint key) public returns (bool) {
+    if (block.timestamp >= projects[key + 1].projectEndTime) {
+      return true;
+    }
+    return false;
+  }
+
+  function hasFundingGoalBeenReached(uint key) public returns (bool) {
+    if (projects[key + 1].amountRaised >= projects[key + 1].fundingGoal) {
+      return true;
+    }
+    return false;
+  }
+
+  function payOutToProjectCreator(uint key) internal returns (bool) {
+    projects[key + 1].creatorAccount.send(projects[key + 1].amountRaised);
     return true;
   }
 

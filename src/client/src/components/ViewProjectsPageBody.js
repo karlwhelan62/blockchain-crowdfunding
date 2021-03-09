@@ -47,10 +47,12 @@ class ViewProjectsPageBody extends Component {
 
     let projectsArray = []
     for(var project of this.props.projectsMap) {
-       projectsArray.push(<ViewProject key={project.key}
-                                       project={project}
-                                       donateToProject={this.props.donateToProject}
-                                       handleChange={this.props.handleChange}/>)
+       if (project.projectHasEnded === false) {
+         projectsArray.push(<ViewProject key={project.key}
+                                         project={project}
+                                         donateToProject={this.props.donateToProject}
+                                         handleChange={this.props.handleChange}/>)
+       }
     }
 
     //const projectComponents = this.props.projectsMap.map(project =>
