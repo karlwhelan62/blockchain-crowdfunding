@@ -8,7 +8,8 @@ import './SafeMath.sol';
 contract Projects{
 
   using SafeMath for uint256;
-  // Defines a refrence type to define a project
+
+  // An iterable structure to keep track of a projects attributes
   struct Project {
     address payable creatorAccount;
     bytes32 name;
@@ -20,12 +21,21 @@ contract Projects{
     bool projectHasEnded;
   }
 
-  // number of projectsTabl
+  // An iterable structure to keep track of all donations to a project
+  struct Donations {
+    mapping (address => uint) donationAmounts;
+    address payable [] addressArray;
+  }
+
+  // number of projects
   // used as an donate_index
   uint numProjects;
 
   // maps an id number to a project
   mapping (uint => Project) projects;
+
+  //maps an id number to a projects donation information
+  mapping (uint => Donations) allDonations;
 
   // Set to true at the end, by default initialised to false
   // bool[] ended;
@@ -37,7 +47,6 @@ contract Projects{
                          uint _fundingGoal,
                          uint _projectEndTime) public payable returns (bool){
 
-    numProjects++;
     projects[numProjects] = Project(
        {
          creatorAccount: msg.sender,
@@ -50,6 +59,15 @@ contract Projects{
          projectHasEnded: false
        }
     );
+
+    allDonations[numProjects] = Donations(
+      {
+          addressArray: new address payable [](0)
+      }
+    );
+
+    numProjects++;
+
     return true;
   }
 
@@ -58,46 +76,81 @@ contract Projects{
     Project[] memory projectArray = new Project[](numProjects);
 
     for (uint i = 0; i < numProjects; i ++) {
-      projectArray[i] = projects[i + 1];
+      projectArray[i] = projects[i];
     }
 
     return projectArray;
   }
 
   function donateToProject(uint key) public payable returns (bool){
+    require(msg.sender != projects[key].creatorAccount);
+    allDonations[key].addressArray.push(msg.sender);
+    allDonations[key].donationAmounts[msg.sender] = allDonations[key].donationAmounts[msg.sender].add(msg.value);
+    projects[key].amountRaised = projects[key].amountRaised.add(msg.value);
     if (hasProjectEndDateBeenReached(key)) {
-      projects[key + 1].projectHasEnded = true;
-      return false;
+      projects[key].projectHasEnded = true;
+      payBackToPledgers(key);
     }
-    projects[key + 1].amountRaised = projects[key + 1].amountRaised.add(msg.value);
     if (hasFundingGoalBeenReached(key)) {
-      projects[key + 1].projectHasEnded = true;
-      payOutToProjectCreator(key);
+      projects[key].projectHasEnded = true;
+      payBackToPledgers(key);
     }
     return true;
   }
 
-  function hasProjectEndDateBeenReached(uint key) public returns (bool) {
-    if (block.timestamp >= projects[key + 1].projectEndTime) {
+  function hasProjectEndDateBeenReached(uint key) public view returns (bool) {
+    if (block.timestamp >= projects[key].projectEndTime) {
       return true;
     }
     return false;
   }
 
-  function hasFundingGoalBeenReached(uint key) public returns (bool) {
-    if (projects[key + 1].amountRaised >= projects[key + 1].fundingGoal) {
+  function hasFundingGoalBeenReached(uint key) public view returns (bool) {
+    if (projects[key].amountRaised >= projects[key].fundingGoal) {
       return true;
     }
     return false;
   }
 
   function payOutToProjectCreator(uint key) internal returns (bool) {
-    projects[key + 1].creatorAccount.send(projects[key + 1].amountRaised);
+    projects[key].creatorAccount.send(projects[key].amountRaised);
+    return true;
+  }
+
+  function payBackToPledgers(uint key) internal returns (bool) {
+
+    for (uint i = 0; i < allDonations[key].addressArray.length; i ++) {
+      allDonations[key].addressArray[i].send(allDonations[key].donationAmounts[allDonations[key].addressArray[i]]);
+      allDonations[key].donationAmounts[allDonations[key].addressArray[i]] = 0;
+    }
+
     return true;
   }
 
   function getContractBalance() public view returns (uint) {
     return address(this).balance;
+  }
+
+  function testDonationAddressRecording(uint key) public view returns (address[] memory) {
+
+    address[] memory addressArray = new address[](allDonations[key].addressArray.length);
+
+    for (uint i = 0; i < allDonations[key].addressArray.length; i ++) {
+      addressArray[i] = allDonations[key].addressArray[i];
+    }
+
+    return addressArray;
+  }
+
+  function testDonationAmountRecording(uint key) public view returns (uint[] memory) {
+
+    uint[] memory amountArray = new uint[](allDonations[key].addressArray.length);
+
+    for (uint i = 0; i < allDonations[key].addressArray.length; i ++) {
+      amountArray[i] = allDonations[key].donationAmounts[allDonations[key].addressArray[i]];
+    }
+
+    return amountArray;
   }
 
 //  function goalMeet(uint i) view public returns (bool) {
