@@ -18,7 +18,7 @@ contract Projects{
     uint fundingGoal;
     uint amountRaised;
     uint projectEndTime;
-    bool projectHasEnded;
+    bool projectIsOver;
   }
 
   // An iterable structure to keep track of all donations to a project
@@ -56,7 +56,7 @@ contract Projects{
          fundingGoal: _fundingGoal,
          amountRaised: 0,
          projectEndTime: _projectEndTime,
-         projectHasEnded: false
+         projectIsOver: false
        }
     );
 
@@ -87,37 +87,37 @@ contract Projects{
     allDonations[key].addressArray.push(msg.sender);
     allDonations[key].donationAmounts[msg.sender] = allDonations[key].donationAmounts[msg.sender].add(msg.value);
     projects[key].amountRaised = projects[key].amountRaised.add(msg.value);
-    if (hasProjectEndDateBeenReached(key)) {
-      projects[key].projectHasEnded = true;
-      payBackToPledgers(key);
+    if (projectHasEnded(key)) {
+      projects[key].projectIsOver = true;
+      payRefunds(key);
     }
-    if (hasFundingGoalBeenReached(key)) {
-      projects[key].projectHasEnded = true;
-      payBackToPledgers(key);
+    if (fundingGoalReached(key)) {
+      projects[key].projectIsOver = true;
+      payOut(key);
     }
     return true;
   }
 
-  function hasProjectEndDateBeenReached(uint key) public view returns (bool) {
+  function projectHasEnded(uint key) public view returns (bool) {
     if (block.timestamp >= projects[key].projectEndTime) {
       return true;
     }
     return false;
   }
 
-  function hasFundingGoalBeenReached(uint key) public view returns (bool) {
+  function fundingGoalReached(uint key) public view returns (bool) {
     if (projects[key].amountRaised >= projects[key].fundingGoal) {
       return true;
     }
     return false;
   }
 
-  function payOutToProjectCreator(uint key) internal returns (bool) {
+  function payOut(uint key) internal returns (bool) {
     projects[key].creatorAccount.send(projects[key].amountRaised);
     return true;
   }
 
-  function payBackToPledgers(uint key) internal returns (bool) {
+  function payRefunds(uint key) internal returns (bool) {
 
     for (uint i = 0; i < allDonations[key].addressArray.length; i ++) {
       allDonations[key].addressArray[i].send(allDonations[key].donationAmounts[allDonations[key].addressArray[i]]);
@@ -130,33 +130,4 @@ contract Projects{
   function getContractBalance() public view returns (uint) {
     return address(this).balance;
   }
-
-  function testDonationAddressRecording(uint key) public view returns (address[] memory) {
-
-    address[] memory addressArray = new address[](allDonations[key].addressArray.length);
-
-    for (uint i = 0; i < allDonations[key].addressArray.length; i ++) {
-      addressArray[i] = allDonations[key].addressArray[i];
-    }
-
-    return addressArray;
-  }
-
-  function testDonationAmountRecording(uint key) public view returns (uint[] memory) {
-
-    uint[] memory amountArray = new uint[](allDonations[key].addressArray.length);
-
-    for (uint i = 0; i < allDonations[key].addressArray.length; i ++) {
-      amountArray[i] = allDonations[key].donationAmounts[allDonations[key].addressArray[i]];
-    }
-
-    return amountArray;
-  }
-
-//  function goalMeet(uint i) view public returns (bool) {
-//    if (amountsRaised[i] >= fundingGoals[i]) {
-//      return true;
-//    }
-//    return false;
-//  }
 }
