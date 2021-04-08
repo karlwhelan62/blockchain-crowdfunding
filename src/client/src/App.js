@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import Projects from './contract/Projects.json'
 import getWeb3 from "./getWeb3"
 import Header from "./components/Header"
+import MetamaskInfo from "./components/MetamaskInfo"
 import HomePage from "./components/HomePage"
+import AboutPage from "./components/AboutPage"
+import GettingFundsInfo from "./components/GettingFundsInfo"
 import CreateProjectPageBody from "./components/CreateProjectPageBody"
 import ViewProjectsPageBody from "./components/ViewProjectsPageBody"
 
@@ -53,7 +56,7 @@ class App extends Component {
     } catch(error) {
       // catch errors
       alert(
-        'Failed to load web3, accounts, or contract. check console for details',
+        'Metamask is not installed. Please read the instruction below',
       );
       console.error(error);
     }
@@ -169,9 +172,12 @@ class App extends Component {
   render() {
 
     if (!this.state.web3) {
-      return <div data-testid="NoWeb3" className="App">
-              <h2>Loading Web3, accounts, and contract......</h2>
-             </div>;
+      return (
+        <div className="App">
+          <MetamaskInfo />
+          <GettingFundsInfo />
+        </div>
+      )
     }
     if (this.state.currentPage === 'Home') {
       return (
@@ -183,6 +189,18 @@ class App extends Component {
           <HomePage account={this.state.accounts[0]}
                     getBalance={this.getBalance}
                     totalEthAmount={this.state.totalEthAmount} />
+        </div>
+      )
+    }
+    if (this.state.currentPage === 'About') {
+      return (
+        <div className="App">
+          <Header handlePageChange={this.handlePageChange}
+                  handleBurgerMenuClick={this.handleBurgerMenuClick}
+                  currentPage={this.state.currentPage}
+                  burgerMenuClicked={this.state.burgerMenuClicked}/>
+          <AboutPage />
+          <GettingFundsInfo />
         </div>
       )
     }
