@@ -1,0 +1,45 @@
+.metamask-background {
+  margin: 0;
+  padding-bottom: 1px;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+  height: max(2400px, 100vh);
+  background-color: #222629;
+  border: 1px solid transparent;
+}
+
+a {
+  color: #86C232;
+}
+
+.links-wrapper {
+  display: flex;
+}
+
+.left-link {
+  width: 33%;
+}
+
+.center-link {
+  width: 34%;
+}
+
+.right-link {
+  width: 33%;
+}
+
+img{
+  display: block;
+  margin-left: auto;
+  margin-top: 50px;
+  margin-right: auto;
+  width: 650px;
+}
+
+@media (max-width: 800px) {
+
+  .metamask-background {
+    height: 2700px;
+  }
+}
