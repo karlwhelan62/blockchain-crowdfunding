@@ -1,3 +1,14 @@
+.view-project-background {
+  margin: 0;
+  padding-bottom: 1px;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+  height: max(1750px, 100vh);
+  background-color: #222629;
+  border: 1px solid transparent;
+}
+
 .project-name-wrapper {
   margin-top: 70px;
 }
@@ -13,6 +24,23 @@
   width: 70%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.project-description-wrapper p {
+  white-space: pre-wrap;
+  overflow: scroll;
+  height: 400px;
+}
+
+/* Hide scrollbar for Chrome*/
+.project-description-wrapper p::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for EDGE and Firefox */
+.project-description-wrapper p {
+  -ms-overflow-style: none;  /* Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .project-info-wrapper {
@@ -78,5 +106,19 @@ input {
   .ProjectObject iframe {
     width: 90%;
     height: 380px;
+  }
+}
+
+@media (min-width: 1550px) {
+
+  .ProjectObject iframe {
+    height: 600px;
+    width: 55%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .view-project-background {
+    height: max(1600px, 100vh);
   }
 }

@@ -86,14 +86,15 @@ class App extends Component {
   createProject = async (event) => {
     event.preventDefault()
     let convertToDate = new Date(this.state.projectLength)
+    console.log(this.state.projectDescription)
 
     try {
 
       let weiValue = this.state.web3.utils.toWei(this.state.projectFundingGoal, 'ether')
       let videoId =  this.state.projectVideoLink.replace('https://youtu.be/', '')
       let projectInfoHash = await this.state.ipfs.add([this.state.projectName,
-                                                       this.state.projectDescription,
-                                                       videoId])
+                                                       videoId,
+                                                       this.state.projectDescription])
 
       this.state.contract.methods.createProject(
         projectInfoHash,
