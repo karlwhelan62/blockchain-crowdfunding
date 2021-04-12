@@ -96,7 +96,7 @@
   100% { transform: rotate(360deg); }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 860px) {
 
   .App {
     height: 1800px;

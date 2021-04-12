@@ -59,7 +59,7 @@ class ViewProjectsPageBody extends Component {
     //  <ViewProject project={project} />)
 
     return (
-      <div data-testid="ViewProjects">
+      <div className="view-project-background" data-testid="ViewProjects">
         {this.props.willShowLoader && <span>
                                           <h2>Block Mining..........</h2>
                                           <div className="loader"></div>
