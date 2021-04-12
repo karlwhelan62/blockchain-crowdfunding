@@ -9,6 +9,8 @@
     "@tippyjs/react": "^4.2.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.4.1",
     "enzyme": "^3.11.0",
+    "ipfs-mini": "^1.1.5",
+    "node-gyp": "^8.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",
