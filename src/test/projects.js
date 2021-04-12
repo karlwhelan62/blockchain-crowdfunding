@@ -22,9 +22,7 @@ interactions with multiple project creators and donators.
 
      // create sample inputs in the correct format
      // incorrect format error handling is done on the frontend
-     var testName = web3.utils.asciiToHex("test name");
-     var testDescription = web3.utils.asciiToHex("test description");
-     var testVideoLink = web3.utils.asciiToHex("test video link");
+     var testProjectInfoHash = "qwgfjfdjkgfkjghdfkgh";
      var testFundingGoal = 10.000;
      var today = new Date();
      // the end date attribute is a timestamp
@@ -32,9 +30,7 @@ interactions with multiple project creators and donators.
      var testProjectEndDate = Math.floor(today / 1000) + 50000000;
 
      // The result of calling a function on the blockchain is a reciept
-     let result = await contractInstance.createProject(testName,
-                                                       testDescription,
-                                                       testVideoLink,
+     let result = await contractInstance.createProject(testProjectInfoHash,
                                                        testFundingGoal,
                                                        testProjectEndDate);
 
@@ -44,25 +40,17 @@ interactions with multiple project creators and donators.
 
    it('Should create 3 more Projects correctly', async () => {
      let contractInstance = await Projects.deployed();
-     var testName = web3.utils.asciiToHex("test name");
-     var testDescription = web3.utils.asciiToHex("test description");
-     var testVideoLink = web3.utils.asciiToHex("test video link");
+     var testProjectInfoHash = "qwgfjfdjkgfkjghdfkgh";
      var testFundingGoal = 10.000;
      var today = new Date();
      var testProjectEndDate = Math.floor(today / 1000) + 50000000;
-     let result1 = await contractInstance.createProject(testName,
-                                                        testDescription,
-                                                        testVideoLink,
+     let result1 = await contractInstance.createProject(testProjectInfoHash,
                                                         testFundingGoal,
                                                         testProjectEndDate);
-     let result2 = await contractInstance.createProject(testName,
-                                                        testDescription,
-                                                        testVideoLink,
+     let result2 = await contractInstance.createProject(testProjectInfoHash,
                                                         testFundingGoal,
                                                         testProjectEndDate);
-     let result3 = await contractInstance.createProject(testName,
-                                                        testDescription,
-                                                        testVideoLink,
+     let result3 = await contractInstance.createProject(testProjectInfoHash,
                                                         testFundingGoal,
                                                         testProjectEndDate);
      assert.equal(result1.receipt.status, true, "Project creation failed");
@@ -82,15 +70,9 @@ interactions with multiple project creators and donators.
      assert.equal(("creatorAccount" in projectsMap[1]),
                    true,
                    "Project missing creator account key");
-     assert.equal(("name" in projectsMap[1]),
+     assert.equal(("projectInfoHash" in projectsMap[1]),
                    true,
-                   "Project missing name key");
-     assert.equal(("description" in projectsMap[1]),
-                   true,
-                   "Project missing description key");
-     assert.equal(("videoLink" in projectsMap[1]),
-                   true,
-                   "Project missing video link key");
+                   "Project missing projectInfoHash key");
      assert.equal(("fundingGoal" in projectsMap[1]),
                    true,
                    "Project missing funding goal key");
@@ -170,17 +152,13 @@ interactions with multiple project creators and donators.
   it('Should create a project that ends in two days', async () => {
     let contractInstance = await Projects.deployed();
     let secondsInADay = 86400;
-    var testName = web3.utils.asciiToHex("test name");
-    var testDescription = web3.utils.asciiToHex("test description");
-    var testVideoLink = web3.utils.asciiToHex("test video link");
+    var testProjectInfoHash = "gfdgdfgdfgfdgdfgdfgfdg";
     var testFundingGoal = 10.000;
     var currentTime = await web3.eth.getBlock('latest')
     const testProjectEndDate = currentTime.timestamp + (86400 * 2);
-    const result = await contractInstance.createProject(testName,
-                                                     testDescription,
-                                                     testVideoLink,
-                                                     testFundingGoal,
-                                                     testProjectEndDate);
+    const result = await contractInstance.createProject(testProjectInfoHash,
+                                                        testFundingGoal,
+                                                        testProjectEndDate);
 
     // The projectHasEnded function returns a Bool.
     // This is the 5th Project we have created so the index is 4.
@@ -202,17 +180,13 @@ interactions with multiple project creators and donators.
    // When a projects funding goal is reached the funds should be payed to the creator.
    let contractInstance = await Projects.deployed();
    const creatorAccount = accounts[4];
-   const testName = web3.utils.asciiToHex("test name");
-   const testDescription = web3.utils.asciiToHex("test description");
-   const testVideoLink = web3.utils.asciiToHex("test video link");
+   const testProjectInfoHash = "fsgfdgdfgdfgdfgdfg";
    // Our sample project will have a funding goal of 10 ether
    const testFundingGoal = web3.utils.toWei('10.0');
    const currentTime = await web3.eth.getBlock('latest')
    const testProjectEndDate =  currentTime.timestamp + (86400 * 2);
 
-   await contractInstance.createProject(testName,
-                                        testDescription,
-                                        testVideoLink,
+   await contractInstance.createProject(testProjectInfoHash,
                                         testFundingGoal,
                                         testProjectEndDate,
                                         {from: creatorAccount});
@@ -241,17 +215,13 @@ interactions with multiple project creators and donators.
    // When the end date of a project is reached, all donations should be refunded.
    let contractInstance = await Projects.deployed();
    const creatorAccount = accounts[4];
-   const testName = web3.utils.asciiToHex("test name");
-   const testDescription = web3.utils.asciiToHex("test description");
-   const testVideoLink = web3.utils.asciiToHex("test video link");
+   const testProjectInfoHash = "gfdgfdgdfgdfgdfgdfg";
    const testFundingGoal = web3.utils.toWei('10.0');
    const currentTime = await web3.eth.getBlock('latest')
    // The end date for this project is 2 days from today.
    const testProjectEndDate =  currentTime.timestamp + (86400 * 2);
 
-   await contractInstance.createProject(testName,
-                                        testDescription,
-                                        testVideoLink,
+   await contractInstance.createProject(testProjectInfoHash,
                                         testFundingGoal,
                                         testProjectEndDate,
                                         {from: creatorAccount});

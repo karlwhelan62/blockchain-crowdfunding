@@ -27,6 +27,7 @@ class App extends Component {
                   totalEthAmount: null,
                   projectsMap: null,
                   web3: null,
+                  ipfs: null,
                   accounts:null,
                   contracts:null,
                   donationAmount: null,
@@ -45,13 +46,18 @@ class App extends Component {
       const accounts = await web3.eth.getAccounts();
 
       const networkId = await web3.eth.net.getId();
-      const deployedNetwork =  Projects.networks[networkId];
+      const deployedNetwork =  Projects.networks[5777];
       const instance = new web3.eth.Contract(
         Projects.abi,
         deployedNetwork && deployedNetwork.address,
       );
 
-      this.setState({ web3, accounts, contract: instance });
+      const ipfsAPI = require('ipfs-mini');
+      const ipfs = new ipfsAPI({ host: 'ipfs.infura.io',
+                                 port: 5001,
+                                 protocol: 'https'});
+
+      this.setState({ web3, accounts, ipfs, contract: instance });
       this.getBalance();
     } catch(error) {
       // catch errors
@@ -65,13 +71,11 @@ class App extends Component {
   retreiveProjects = async () => {
     let x =  await this.state.contract.methods.returnProjects().call()
     for(let i = 0; i < x.length; i ++) {
-      x[i].name = this.state.web3.utils.hexToAscii(x[i].name).replace(/\0/g, '')
-      x[i].description = this.state.web3.utils.hexToAscii(x[i].description).replace(/\0/g, '')
-      x[i].videoLink = this.state.web3.utils.hexToAscii(x[i].videoLink).replace(/\0/g, '')
       x[i].fundingGoal = this.state.web3.utils.fromWei(x[i].fundingGoal, 'ether')
       x[i].amountRaised = this.state.web3.utils.fromWei(x[i].amountRaised, 'ether')
       x[i].projectEndTime = new Date(x[i].projectEndTime * 1000).toLocaleDateString()
       x[i].key = i
+      x[i].projectInfo = await this.state.ipfs.cat(x[i].projectInfoHash)
     }
 
     this.setState({
@@ -79,7 +83,7 @@ class App extends Component {
     })
   }
 
-  createProject(event) {
+  createProject = async (event) => {
     event.preventDefault()
     let convertToDate = new Date(this.state.projectLength)
 
@@ -87,11 +91,12 @@ class App extends Component {
 
       let weiValue = this.state.web3.utils.toWei(this.state.projectFundingGoal, 'ether')
       let videoId =  this.state.projectVideoLink.replace('https://youtu.be/', '')
+      let projectInfoHash = await this.state.ipfs.add([this.state.projectName,
+                                                       this.state.projectDescription,
+                                                       videoId])
 
       this.state.contract.methods.createProject(
-        this.state.web3.utils.asciiToHex(this.state.projectName),
-        this.state.web3.utils.asciiToHex(this.state.projectDescription),
-        this.state.web3.utils.asciiToHex(videoId),
+        projectInfoHash,
         weiValue,
         Math.floor(convertToDate.valueOf() / 1000)).send(
           {from: this.state.accounts[0]})

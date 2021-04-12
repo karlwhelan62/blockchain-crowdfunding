@@ -7,6 +7,7 @@ import "@testing-library/jest-dom/extend-expect"
 const TestProject = {videoLink: "link",
                      name: "name",
                      description: "description",
+                     projectInfo: "ggggg, fgfgfdsgf, sdfdsfsdfsdf",
                      fundingGoal: 10,
                      projectEndTime: "10/02/21"};
 

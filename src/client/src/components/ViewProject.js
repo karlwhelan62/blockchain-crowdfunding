@@ -5,13 +5,14 @@ class ViewProject extends Component {
 
   render() {
 
-    let embededdVideoUrl = "https://www.youtube.com/embed/".concat(this.props.project.videoLink)
+    let projectInfo = this.props.project.projectInfo.split(",")
+    let embededdVideoUrl = "https://www.youtube.com/embed/".concat(projectInfo[2])
 
     return (
       <div data-testid="ProjectObject" className="ProjectObject">
         <div className="project-name-wrapper">
           <h2>Project Name</h2>
-          <h4>{this.props.project.name}</h4>
+          <h4>{projectInfo[0]}</h4>
         </div>
         <h3>Project Video</h3>
         <iframe src={embededdVideoUrl}
@@ -21,7 +22,7 @@ class ViewProject extends Component {
         title='video'/>
         <br/>
         <h3>Project Description</h3>
-        <p>{this.props.project.description}</p>
+        <p>{projectInfo[1]}</p>
         <br/>
         <div className="project-info-wrapper">
           <div>

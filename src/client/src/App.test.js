@@ -15,13 +15,6 @@ describe("App", () => {
     ReactDOM.render(<App/>, div);
   })
 
-  it("renders web 3 loading mesaage correctly", () => {
-    const { getByTestId, getByText } = render(<App />);
-
-    expect(getByTestId('NoWeb3')).toHaveTextContent;
-    expect(getByText("Loading Web3, accounts, and contract......")).not.toBeNull();
-  })
-
   it("injects test web3 and displays homepage when connected", async () => {
     const web3 = await getWeb3Test();
     const accounts = await web3.eth.getAccounts();

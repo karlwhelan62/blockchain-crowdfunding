@@ -12,9 +12,7 @@ contract Projects{
   // An iterable structure to keep track of a projects attributes
   struct Project {
     address payable creatorAccount;
-    bytes32 name;
-    bytes32 description;
-    bytes32 videoLink;
+    string projectInfoHash;
     uint fundingGoal;
     uint amountRaised;
     uint projectEndTime;
@@ -41,18 +39,14 @@ contract Projects{
   // bool[] ended;
 
   // contructor code is only run when the contract is created
-  function createProject(bytes32 _name,
-                         bytes32 _description,
-                         bytes32 _videoLink,
+  function createProject(string memory _projectInfoHash,
                          uint _fundingGoal,
                          uint _projectEndTime) public payable returns (bool){
 
     projects[numProjects] = Project(
        {
          creatorAccount: msg.sender,
-         name: _name,
-         description: _description,
-         videoLink: _videoLink,
+         projectInfoHash: _projectInfoHash,
          fundingGoal: _fundingGoal,
          amountRaised: 0,
          projectEndTime: _projectEndTime,
