@@ -5,7 +5,7 @@ class GettingFundsInfo extends Component {
 
   render() {
     return(
-      <div className="getting-funds-info-background">
+      <div data-testid="getting-funds-info" className="getting-funds-info-background">
         <h2>How to get test ether</h2>
         <p>If you want to test out creating a new project or donating to an existing one you will need to get some test ether. To do this you can either request ether from the rinkeby faucet or from the creator of this application. The faucet will deliver funds instantaneously but requires you to make a social media post requesting funds. Recieving ether from the applications creator will take longer but there is no need to make a social media post.</p>
         <h2>Using the faucet</h2>
