@@ -215,7 +215,7 @@ interactions with multiple project creators and donators.
    // When the end date of a project is reached, all donations should be refunded.
    let contractInstance = await Projects.deployed();
    const creatorAccount = accounts[4];
-   const testProjectInfoHash = "gfdgfdgdfgdfgdfgdfg";
+   const testProjectInfoHash = "Qmgfdgfdgdfgdfgdfgdfg";
    const testFundingGoal = web3.utils.toWei('10.0');
    const currentTime = await web3.eth.getBlock('latest')
    // The end date for this project is 2 days from today.
