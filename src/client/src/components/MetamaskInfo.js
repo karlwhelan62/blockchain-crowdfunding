@@ -5,14 +5,14 @@ class MetamaskInfo extends Component {
 
   render() {
     return (
-      <div data-testid="NoWeb3" className="metamask-background">
+      <div data-testid="no-metamask" className="metamask-background">
         <h2>Instructions</h2>
         <p>To use this application you must have the Metamask extension installed on your web browser.</p>
         <h3>If you have Metamask Installed</h3>
         <p>The extension should pop up allowing you to connect with an account. This may take a few seconds to load.</p>
         <h2>If you do not have Metamask installed please follow these instructions</h2>
         <p>Metamask is available for Chrome, Firefox and Microsoft Edge.</p>
-        <div className="links-wrapper">
+        <div data-testid="metamask-links" className="links-wrapper">
           <div className="left-link">
             <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn" target="blank">Chrome Link</a>
           </div>

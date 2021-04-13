@@ -119,6 +119,6 @@ input {
   }
 
   .view-project-background {
-    height: max(1600px, 100vh);
+    height: max(1800px, 100vh);
   }
 }

@@ -46,7 +46,7 @@ class App extends Component {
       const accounts = await web3.eth.getAccounts();
 
       const networkId = await web3.eth.net.getId();
-      const deployedNetwork =  Projects.networks[5777];
+      const deployedNetwork =  Projects.networks[networkId];
       const instance = new web3.eth.Contract(
         Projects.abi,
         deployedNetwork && deployedNetwork.address,
@@ -69,24 +69,27 @@ class App extends Component {
   };
 
   retreiveProjects = async () => {
-    let x =  await this.state.contract.methods.returnProjects().call()
-    for(let i = 0; i < x.length; i ++) {
-      x[i].fundingGoal = this.state.web3.utils.fromWei(x[i].fundingGoal, 'ether')
-      x[i].amountRaised = this.state.web3.utils.fromWei(x[i].amountRaised, 'ether')
-      x[i].projectEndTime = new Date(x[i].projectEndTime * 1000).toLocaleDateString()
-      x[i].key = i
-      x[i].projectInfo = await this.state.ipfs.cat(x[i].projectInfoHash)
-    }
 
-    this.setState({
-      projectsMap: x
-    })
+    try {
+      let x =  await this.state.contract.methods.returnProjects().call()
+
+      for(let i = 0; i < x.length; i ++) {
+        x[i].fundingGoal = this.state.web3.utils.fromWei(x[i].fundingGoal, 'ether')
+        x[i].amountRaised = this.state.web3.utils.fromWei(x[i].amountRaised, 'ether')
+        x[i].projectEndTime = new Date(x[i].projectEndTime * 1000).toLocaleDateString()
+        x[i].key = i
+        x[i].projectInfo = await this.state.ipfs.cat(x[i].projectInfoHash)
+      }
+
+      this.setState({
+        projectsMap: x
+      })
+    } catch(error) {}
   }
 
   createProject = async (event) => {
     event.preventDefault()
     let convertToDate = new Date(this.state.projectLength)
-    console.log(this.state.projectDescription)
 
     try {
 
@@ -95,6 +98,10 @@ class App extends Component {
       let projectInfoHash = await this.state.ipfs.add([this.state.projectName,
                                                        videoId,
                                                        this.state.projectDescription])
+
+      console.log(projectInfoHash)
+      console.log(this.state.web3.utils.toHex(projectInfoHash))
+      console.log(this.state.web3.utils.toHex(projectInfoHash).length)
 
       this.state.contract.methods.createProject(
         projectInfoHash,
