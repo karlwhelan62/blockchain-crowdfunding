@@ -95,7 +95,8 @@ class App extends Component {
 
       let weiValue = this.state.web3.utils.toWei(this.state.projectFundingGoal, 'ether')
       let videoId =  this.state.projectVideoLink.replace('https://youtu.be/', '')
-      let projectInfoHash = await this.state.ipfs.add([this.state.projectName,
+      let name = this.state.projectName.replace(/,/g, "")
+      let projectInfoHash = await this.state.ipfs.add([name,
                                                        videoId,
                                                        this.state.projectDescription])
 
