@@ -7,12 +7,20 @@ Because these tests are for scalablity they should be run against a ganache
 instance with a 100 generated accounts.
 */
 
+// Allows us to do a rough Euro to Ether conversion in the logs.
 const euroToEth = 1870;
+
+// These are palceholder attributes to pass to created projects.
 const testHash = "Qmtttttttttttttttt";
 const testFundingGoal = 1000.000;
 const today = new Date();
 const testProjectEndDate = Math.floor(today / 1000) + 50000000;
 
+/* There is no nice way to format strings in Javascript. This function just
+  ensures that exra whitespace is added to the end of each string so that all
+  strings will be of length 20. This just means they will allign nicely in the
+  table generated in our logs. This function handles the headings which are
+  strings */
 const formatKeyString = async function(array) {
   newString = "";
   for(var i = 0; i < array.length; i++) {
@@ -23,6 +31,7 @@ const formatKeyString = async function(array) {
   return newString;
 }
 
+// And this one handles the values which are numbers
 const formatValueString = async function(array) {
   newString = "";
   for(var i = 0; i < array.length; i++) {
@@ -33,6 +42,9 @@ const formatValueString = async function(array) {
   return newString;
 }
 
+/* This function takes the hash of a previous transaction on the blockchain and
+ uses web3 to look up the gas information we are interested in and returns them
+ in a mapping. */
 const fetchTransactionGas = async function(transactionHash, i){
   transaction = await web3.eth.getTransaction(transactionHash);
   transactionReceipt = await web3.eth.getTransactionReceipt(transactionHash);
@@ -49,6 +61,9 @@ const fetchTransactionGas = async function(transactionHash, i){
   return results;
 }
 
+/* creates the given amount of projects and records the gas information of the
+  1st project and then every ten projects. At the end of the function this
+  information is written to a log file as a table */
 const createProjectScalabilityTest = async function (numOfProjects, accounts) {
   let contractInstance = await Projects.deployed();
   gasResults = [];
@@ -76,6 +91,7 @@ const createProjectScalabilityTest = async function (numOfProjects, accounts) {
                    stringArray.join("\n"));
 };
 
+// Same as above but for donations to 1 project from a given amount of accounts.
 const donateToOneProjectScalabilityTest = async function (numOfProjects,
                                                           accounts) {
   let contractInstance = await Projects.deployed();
@@ -103,6 +119,8 @@ const donateToOneProjectScalabilityTest = async function (numOfProjects,
                    stringArray.join("\n"));
 };
 
+/* Same as above but for doantions to a given amount of accounts from a given
+ amount of accounts */
 const donateToAllProjectScalabilityTest = async function (numOfProjects,
                                                           accounts) {
   let contractInstance = await Projects.deployed();

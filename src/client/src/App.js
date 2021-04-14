@@ -11,8 +11,8 @@ import ViewProjectsPageBody from "./components/ViewProjectsPageBody"
 
 import "./App.css";
 
-// instantiate web3 + contracts instants
 class App extends Component {
+  // sets state to the initial values.
   constructor() {
     super()
     this.handlePageChange = this.handlePageChange.bind(this)
@@ -39,7 +39,8 @@ class App extends Component {
                   willShowLoader: false};
   }
 
-  // executed once when the app loads
+  /* executed once when the app loads. Connects to metamask and the user account,
+   the blockchain and to IPFS for storing project information. */
   componentDidMount = async () => {
     try {
       const web3 = await getWeb3();
@@ -68,6 +69,8 @@ class App extends Component {
     }
   };
 
+  /* Retrieves an array of all projects from the blockchain and places them in
+  state so hey can be displayed */
   retreiveProjects = async () => {
 
     try {
@@ -87,6 +90,9 @@ class App extends Component {
     } catch(error) {}
   }
 
+  /* Takes the project information, saved on the create project form ,from state,
+  formats it coreectly, and saves the relevant info on IPFS and the blockchain
+  respectively */
   createProject = async (event) => {
     event.preventDefault()
     let convertToDate = new Date(this.state.projectLength)
@@ -100,15 +106,12 @@ class App extends Component {
                                                        videoId,
                                                        this.state.projectDescription])
 
-      console.log(projectInfoHash)
-      console.log(this.state.web3.utils.toHex(projectInfoHash))
-      console.log(this.state.web3.utils.toHex(projectInfoHash).length)
-
       this.state.contract.methods.createProject(
         projectInfoHash,
         weiValue,
         Math.floor(convertToDate.valueOf() / 1000)).send(
           {from: this.state.accounts[0]})
+          // WillShowLoader uses css to display a progress wheel while executing.
           .then(this.setState({willShowLoader: true}))
           .then(f => this.setState({willShowLoader: false}))
           .then(f => alert("Project Creation Successful"))
@@ -123,6 +126,7 @@ class App extends Component {
     }
   }
 
+  // Donates the indicted amount to the project with the given key
   donateToProject = async (projectKey) => {
     try {
 
