@@ -1,5 +1,7 @@
 import Web3 from "web3";
 
+/* This is a mock web3 used for tests. Connects us straight to a local
+blockchain without locaing for Metamask*/
 const getWeb3Test = () =>
   new Promise((resolve, reject) => {
 

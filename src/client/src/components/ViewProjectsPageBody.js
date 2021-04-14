@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./ViewProjectsPageBody.css"
 
+// Styling arrows to click bewtweem projects.
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
@@ -31,6 +32,7 @@ class ViewProjectsPageBody extends Component {
 
   render() {
 
+    // The options for the project slideshow.
     const settings = {
       dots: true,
       infinite: true,
@@ -54,9 +56,6 @@ class ViewProjectsPageBody extends Component {
                                          handleChange={this.props.handleChange}/>)
        }
     }
-
-    //const projectComponents = this.props.projectsMap.map(project =>
-    //  <ViewProject project={project} />)
 
     return (
       <div className="view-project-background" data-testid="ViewProjects">
