@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Projects from './contract/Projects.json'
+import Projects from './builtContracts/Projects.json'
 import getWeb3 from "./getWeb3"
 import Header from "./components/Header"
 import MetamaskInfo from "./components/MetamaskInfo"
@@ -148,6 +148,7 @@ class App extends Component {
       console.log(error)
     }
 
+    // Reretrieve project array to update to new amount raised values.
     this.setState({
       projectsMap: null
     })
@@ -172,6 +173,7 @@ class App extends Component {
     })
   }
 
+  // Handles state change.
   handleChange(event) {
     const {name, value} = event.target
     this.setState({
@@ -179,6 +181,7 @@ class App extends Component {
     })
   }
 
+  // Retreives the values of all active donations.
   getBalance() {
     this.state.contract.methods.getContractBalance().call().then(
       f => this.setState({
@@ -189,6 +192,7 @@ class App extends Component {
 
   render() {
 
+    // If web3 has not loaded display helpful information
     if (!this.state.web3) {
       return (
         <div className="App">

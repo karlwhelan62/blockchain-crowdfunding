@@ -47,6 +47,7 @@ class ViewProjectsPageBody extends Component {
       return (<div data-testid="ViewProjectsNoMap">Loading Projects......</div>)
     }
 
+    // Build and display a list of projects. only display active projects.
     let projectsArray = []
     for(var project of this.props.projectsMap) {
        if (project.projectIsOver === false) {

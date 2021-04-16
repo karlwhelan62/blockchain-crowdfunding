@@ -1,5 +1,13 @@
 // SPDX-License-Identifier: MIT
 
+/*
+* 3rd Party Code
+* Title: SafeMath
+* Date: 9 May 2018
+* Availability: https://github.com/ConsenSysMesh/openzeppelin-solidity/blob/master/contracts/math/SafeMath.sol
+ */
+
+
 pragma solidity >=0.6.0 <0.8.0;
 
 /**
