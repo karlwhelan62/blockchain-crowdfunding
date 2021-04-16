@@ -2,7 +2,7 @@ import { render, cleanup, screen} from '@testing-library/react';
 import { shallow, configure, mount} from "enzyme";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17"
 import App from './App';
-import Projects from './contract/Projects.json'
+import Projects from './builtContracts/Projects.json'
 import ReactDOM from 'react-dom';
 import getWeb3Test from "./getWeb3Test"
 
