@@ -47,7 +47,7 @@ class App extends Component {
       const accounts = await web3.eth.getAccounts();
 
       const networkId = await web3.eth.net.getId();
-      const deployedNetwork =  Projects.networks[networkId];
+      const deployedNetwork =  Projects.networks[5777];
       const instance = new web3.eth.Contract(
         Projects.abi,
         deployedNetwork && deployedNetwork.address,
@@ -196,6 +196,7 @@ class App extends Component {
     if (!this.state.web3) {
       return (
         <div className="App">
+          <AboutPage />
           <MetamaskInfo />
           <GettingFundsInfo />
         </div>
@@ -214,7 +215,7 @@ class App extends Component {
         </div>
       )
     }
-    if (this.state.currentPage === 'About') {
+    if (this.state.currentPage === 'Help') {
       return (
         <div className="App">
           <Header handlePageChange={this.handlePageChange}
