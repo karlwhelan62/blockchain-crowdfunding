@@ -10,7 +10,7 @@ class Navbar extends Component {
           <li className = "active" onClick={() => this.props.handlePageChange("Home")}>Home</li>
           <li onClick={() => this.props.handlePageChange("CreateProject")}>Create Project</li>
           <li onClick={() => this.props.handlePageChange("ViewProject")}>View Projects</li>
-          <li onClick={() => this.props.handlePageChange("About")}>About</li>
+          <li onClick={() => this.props.handlePageChange("Help")}>Help</li>
         </ul>
       )
     }
@@ -20,7 +20,7 @@ class Navbar extends Component {
           <li onClick={() => this.props.handlePageChange("Home")}>Home</li>
           <li className = "active" onClick={() => this.props.handlePageChange("CreateProject")}>Create Project</li>
           <li onClick={() => this.props.handlePageChange("ViewProject")}>View Projects</li>
-          <li onClick={() => this.props.handlePageChange("About")}>About</li>
+          <li onClick={() => this.props.handlePageChange("Help")}>Help</li>
         </ul>
       )
     }
@@ -30,7 +30,7 @@ class Navbar extends Component {
           <li onClick={() => this.props.handlePageChange("Home")}>Home</li>
           <li onClick={() => this.props.handlePageChange("CreateProject")}>Create Project</li>
           <li className = "active" onClick={() => this.props.handlePageChange("ViewProject")}>View Projects</li>
-          <li onClick={() => this.props.handlePageChange("About")}>About</li>
+          <li onClick={() => this.props.handlePageChange("Help")}>Help</li>
         </ul>
       )
     }
@@ -39,7 +39,7 @@ class Navbar extends Component {
         <li onClick={() => this.props.handlePageChange("Home")}>Home</li>
         <li onClick={() => this.props.handlePageChange("CreateProject")}>Create Project</li>
         <li onClick={() => this.props.handlePageChange("ViewProject")}>View Projects</li>
-        <li className = "active" onClick={() => this.props.handlePageChange("About")}>About</li>
+        <li className = "active" onClick={() => this.props.handlePageChange("Help")}>Help</li>
       </ul>
     )
   }

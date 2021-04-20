@@ -6,6 +6,8 @@ class GettingFundsInfo extends Component {
   render() {
     return(
       <div data-testid="getting-funds-info" className="getting-funds-info-background">
+        <h2>How to use this site</h2>
+        <p>You can navigate to the various pages of this site to get a feel of the frontend for this application. If you have test funds in your Metamask wallet you can try creating a project or donating to an existing project to get a feel of how that works. For instructions on how to get test funds see below.</p>
         <h2>How to get test ether</h2>
         <p>If you want to test out creating a new project or donating to an existing one you will need to get some test ether. To do this you can either request ether from the rinkeby faucet or from the creator of this application. The faucet will deliver funds instantaneously but requires you to make a social media post requesting funds. Recieving ether from the applications creator will take longer but there is no need to make a social media post.</p>
         <h2>Using the faucet</h2>
