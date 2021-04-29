@@ -1,0 +1,24 @@
+.getting-funds-info-background {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+  height: max(2700px, 100vh);
+  background-color: #222629;
+  border: 1px solid transparent;
+}
+
+img{
+  display: block;
+  margin-left: auto;
+  margin-top: 50px;
+  margin-right: auto;
+  width: 650px;
+}
+
+@media (max-width: 800px) {
+
+  .getting-funds-info-background {
+    height: 2700px;
+  }
+}

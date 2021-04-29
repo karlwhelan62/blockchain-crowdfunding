@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./ViewProjectsPageBody.css"
 
+// Styling arrows to click bewtweem projects.
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
@@ -31,6 +32,7 @@ class ViewProjectsPageBody extends Component {
 
   render() {
 
+    // The options for the project slideshow.
     const settings = {
       dots: true,
       infinite: true,
@@ -45,19 +47,19 @@ class ViewProjectsPageBody extends Component {
       return (<div data-testid="ViewProjectsNoMap">Loading Projects......</div>)
     }
 
+    // Build and display a list of projects. only display active projects.
     let projectsArray = []
     for(var project of this.props.projectsMap) {
-       projectsArray.push(<ViewProject key={project.key}
-                                       project={project}
-                                       donateToProject={this.props.donateToProject}
-                                       handleChange={this.props.handleChange}/>)
+       if (project.projectIsOver === false) {
+         projectsArray.push(<ViewProject key={project.key}
+                                         project={project}
+                                         donateToProject={this.props.donateToProject}
+                                         handleChange={this.props.handleChange}/>)
+       }
     }
 
-    //const projectComponents = this.props.projectsMap.map(project =>
-    //  <ViewProject project={project} />)
-
     return (
-      <div data-testid="ViewProjects">
+      <div className="view-project-background" data-testid="ViewProjects">
         {this.props.willShowLoader && <span>
                                           <h2>Block Mining..........</h2>
                                           <div className="loader"></div>

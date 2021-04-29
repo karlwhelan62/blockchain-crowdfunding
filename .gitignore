@@ -16,3 +16,9 @@ node_modules/
 
 # Ignore cache
 src/client/.eslintcache
+
+# Ignore logs
+src/test/logs
+
+# Ignore Built Contracts
+src/client/src/builtContracts

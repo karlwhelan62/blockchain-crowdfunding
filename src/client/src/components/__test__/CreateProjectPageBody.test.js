@@ -17,8 +17,7 @@ it("renders create project page component correctly", () => {
 
   expect(getByTestId('CreateProjectPage')).toHaveTextContent
 
-  expect(getByText(
-    "Create Project Form")).not.toBeNull();
+  expect(getByText("Create Project Form")).not.toBeNull();
 
   // Name input
   expect(getByLabelText("Project Name")).not.toBeNull();

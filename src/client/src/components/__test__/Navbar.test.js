@@ -12,7 +12,7 @@ it("renders without crashing", () => {
 })
 
 it("renders view projects page active navbar correctly", () => {
-  const { getByTestId } = render(<Navbar />);
+  const { getByTestId } = render(<Navbar currentPage="ViewProject"/>);
 
   expect(getByTestId('view-projects-page-active-navbar')).toHaveTextContent;
 })
@@ -27,4 +27,10 @@ it("renders create project page active navbar correctly", () => {
   const { getByTestId } = render(<Navbar currentPage="CreateProject"/>);
 
   expect(getByTestId('create-project-page-active-navbar')).toHaveTextContent;
+})
+
+it("renders about page active navbar correctly", () => {
+  const { getByTestId } = render(<Navbar />);
+
+  expect(getByTestId('about-page-active-navbar')).toHaveTextContent;
 })

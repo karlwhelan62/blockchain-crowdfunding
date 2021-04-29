@@ -2,80 +2,134 @@
 pragma solidity >=0.6.0 < 0.8.0;
 pragma experimental ABIEncoderV2;
 
-// Importing OpenZeppelin's SafeMath Implementation
+// Importing OpenZeppelin's SafeMath Implementation.
 import './SafeMath.sol';
 
 contract Projects{
 
   using SafeMath for uint256;
-  // Defines a refrence type to define a project
+
+  // An iterable structure to keep track of a projects attributes.
   struct Project {
-    address creatorAccount;
-    bytes32 name;
-    bytes32 description;
-    bytes32 videoLink;
+    address payable creatorAccount;
+    string projectInfoHash;
     uint fundingGoal;
     uint amountRaised;
     uint projectEndTime;
+    bool projectIsOver;
   }
 
-  // number of projectsTabl
-  // used as an donate_index
+  // An iterable structure to keep track of all donations to a project.
+  struct Donations {
+    mapping (address => uint) donationAmounts;
+    address payable [] addressArray;
+  }
+
+  // Number of projects, used as an id number for projects and donations.
   uint numProjects;
 
-  // maps an id number to a project
+  // Maps an id number to a project.
   mapping (uint => Project) projects;
 
-  // Set to true at the end, by default initialised to false
-  // bool[] ended;
+  // Maps an id number to a projects donation information.
+  mapping (uint => Donations) allDonations;
 
-  // contructor code is only run when the contract is created
-  function createProject(bytes32 _name,
-                         bytes32 _description,
-                         bytes32 _videoLink,
+  // Creates a new project and stores it's info on the blockchain.
+  function createProject(string memory _projectInfoHash,
                          uint _fundingGoal,
                          uint _projectEndTime) public payable returns (bool){
 
-    numProjects++;
     projects[numProjects] = Project(
        {
          creatorAccount: msg.sender,
-         name: _name,
-         description: _description,
-         videoLink: _videoLink,
+         projectInfoHash: _projectInfoHash,
          fundingGoal: _fundingGoal,
          amountRaised: 0,
-         projectEndTime: _projectEndTime
+         projectEndTime: _projectEndTime,
+         projectIsOver: false
        }
     );
+
+    allDonations[numProjects] = Donations(
+      {
+          addressArray: new address payable [](0)
+      }
+    );
+
+    numProjects++;
+
     return true;
   }
 
+  // Builds and returns an array of all projects.
+  // Used to display projects on the frontend.
   function returnProjects() public view returns (Project[] memory) {
 
     Project[] memory projectArray = new Project[](numProjects);
 
     for (uint i = 0; i < numProjects; i ++) {
-      projectArray[i] = projects[i + 1];
+      projectArray[i] = projects[i];
     }
 
     return projectArray;
   }
 
+  /* Donates the message value to the project with the key that is passed. The
+   message senders address and donation amount are recorded. If the projects end
+   date has been reached the payRefunds function is called and the project ends.
+   If the funding goal has been reached the payOut function is called and the
+   project ends. */
   function donateToProject(uint key) public payable returns (bool){
-    require(block.timestamp <= projects[key + 1].projectEndTime, "Project has ended");
-    projects[key + 1].amountRaised = projects[key + 1].amountRaised.add(msg.value);
+    require(msg.sender != projects[key].creatorAccount);
+    allDonations[key].addressArray.push(msg.sender);
+    allDonations[key].donationAmounts[msg.sender] = allDonations[key].donationAmounts[msg.sender].add(msg.value);
+    projects[key].amountRaised = projects[key].amountRaised.add(msg.value);
+    if (projectHasEnded(key)) {
+      projects[key].projectIsOver = true;
+      payRefunds(key);
+    }
+    if (fundingGoalReached(key)) {
+      projects[key].projectIsOver = true;
+      payOut(key);
+    }
     return true;
   }
 
+  // Checks is the projects end date has passed.
+  function projectHasEnded(uint key) public view returns (bool) {
+    if (block.timestamp >= projects[key].projectEndTime) {
+      return true;
+    }
+    return false;
+  }
+
+  // Checks if the funding goal has been reached.
+  function fundingGoalReached(uint key) public view returns (bool) {
+    if (projects[key].amountRaised >= projects[key].fundingGoal) {
+      return true;
+    }
+    return false;
+  }
+
+  // Pays out raised funds for a project to the project owner.
+  function payOut(uint key) internal returns (bool) {
+    projects[key].creatorAccount.send(projects[key].amountRaised);
+    return true;
+  }
+
+  // Refunds all donations to a project.
+  function payRefunds(uint key) internal returns (bool) {
+
+    for (uint i = 0; i < allDonations[key].addressArray.length; i ++) {
+      allDonations[key].addressArray[i].send(allDonations[key].donationAmounts[allDonations[key].addressArray[i]]);
+      allDonations[key].donationAmounts[allDonations[key].addressArray[i]] = 0;
+    }
+
+    return true;
+  }
+
+  // Returns all donated funds to active projects.
   function getContractBalance() public view returns (uint) {
     return address(this).balance;
   }
-
-//  function goalMeet(uint i) view public returns (bool) {
-//    if (amountsRaised[i] >= fundingGoals[i]) {
-//      return true;
-//    }
-//    return false;
-//  }
 }

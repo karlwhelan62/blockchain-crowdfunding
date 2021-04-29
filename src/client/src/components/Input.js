@@ -29,7 +29,7 @@ class Input extends Component {
                     id={this.props.name}
                     name={this.props.name}
                     onChange={this.props.handleChange}
-                    maxLength="300"
+                    maxLength="3000"
                     required></textarea>
         </div>
       )

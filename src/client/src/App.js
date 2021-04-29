@@ -1,15 +1,18 @@
 import React, { Component } from "react";
-import Projects from './contract/Projects.json'
+import Projects from './builtContracts/Projects.json'
 import getWeb3 from "./getWeb3"
 import Header from "./components/Header"
+import MetamaskInfo from "./components/MetamaskInfo"
 import HomePage from "./components/HomePage"
+import AboutPage from "./components/AboutPage"
+import GettingFundsInfo from "./components/GettingFundsInfo"
 import CreateProjectPageBody from "./components/CreateProjectPageBody"
 import ViewProjectsPageBody from "./components/ViewProjectsPageBody"
 
 import "./App.css";
 
-// instantiate web3 + contracts instants
 class App extends Component {
+  // sets state to the initial values.
   constructor() {
     super()
     this.handlePageChange = this.handlePageChange.bind(this)
@@ -24,6 +27,7 @@ class App extends Component {
                   totalEthAmount: null,
                   projectsMap: null,
                   web3: null,
+                  ipfs: null,
                   accounts:null,
                   contracts:null,
                   donationAmount: null,
@@ -35,7 +39,8 @@ class App extends Component {
                   willShowLoader: false};
   }
 
-  // executed once when the app loads
+  /* executed once when the app loads. Connects to metamask and the user account,
+   the blockchain and to IPFS for storing project information. */
   componentDidMount = async () => {
     try {
       const web3 = await getWeb3();
@@ -48,35 +53,47 @@ class App extends Component {
         deployedNetwork && deployedNetwork.address,
       );
 
-      this.setState({ web3, accounts, contract: instance });
+      const ipfsAPI = require('ipfs-mini');
+      const ipfs = new ipfsAPI({ host: 'ipfs.infura.io',
+                                 port: 5001,
+                                 protocol: 'https'});
+
+      this.setState({ web3, accounts, ipfs, contract: instance });
       this.getBalance();
     } catch(error) {
       // catch errors
       alert(
-        'Failed to load web3, accounts, or contract. check console for details',
+        'Metamask is not installed. Please read the instruction below',
       );
       console.error(error);
     }
   };
 
+  /* Retrieves an array of all projects from the blockchain and places them in
+  state so hey can be displayed */
   retreiveProjects = async () => {
-    let x =  await this.state.contract.methods.returnProjects().call()
-    for(let i = 0; i < x.length; i ++) {
-      x[i].name = this.state.web3.utils.hexToAscii(x[i].name).replace(/\0/g, '')
-      x[i].description = this.state.web3.utils.hexToAscii(x[i].description).replace(/\0/g, '')
-      x[i].videoLink = this.state.web3.utils.hexToAscii(x[i].videoLink).replace(/\0/g, '')
-      x[i].fundingGoal = this.state.web3.utils.fromWei(x[i].fundingGoal, 'ether')
-      x[i].amountRaised = this.state.web3.utils.fromWei(x[i].amountRaised, 'ether')
-      x[i].projectEndTime = new Date(x[i].projectEndTime * 1000).toLocaleDateString()
-      x[i].key = i
-    }
 
-    this.setState({
-      projectsMap: x
-    })
+    try {
+      let x =  await this.state.contract.methods.returnProjects().call()
+
+      for(let i = 0; i < x.length; i ++) {
+        x[i].fundingGoal = this.state.web3.utils.fromWei(x[i].fundingGoal, 'ether')
+        x[i].amountRaised = this.state.web3.utils.fromWei(x[i].amountRaised, 'ether')
+        x[i].projectEndTime = new Date(x[i].projectEndTime * 1000).toLocaleDateString()
+        x[i].key = i
+        x[i].projectInfo = await this.state.ipfs.cat(x[i].projectInfoHash)
+      }
+
+      this.setState({
+        projectsMap: x
+      })
+    } catch(error) {}
   }
 
-  createProject(event) {
+  /* Takes the project information, saved on the create project form ,from state,
+  formats it coreectly, and saves the relevant info on IPFS and the blockchain
+  respectively */
+  createProject = async (event) => {
     event.preventDefault()
     let convertToDate = new Date(this.state.projectLength)
 
@@ -84,14 +101,17 @@ class App extends Component {
 
       let weiValue = this.state.web3.utils.toWei(this.state.projectFundingGoal, 'ether')
       let videoId =  this.state.projectVideoLink.replace('https://youtu.be/', '')
+      let name = this.state.projectName.replace(/,/g, "")
+      let projectInfoHash = await this.state.ipfs.add([name,
+                                                       videoId,
+                                                       this.state.projectDescription])
 
       this.state.contract.methods.createProject(
-        this.state.web3.utils.asciiToHex(this.state.projectName),
-        this.state.web3.utils.asciiToHex(this.state.projectDescription),
-        this.state.web3.utils.asciiToHex(videoId),
+        projectInfoHash,
         weiValue,
         Math.floor(convertToDate.valueOf() / 1000)).send(
           {from: this.state.accounts[0]})
+          // WillShowLoader uses css to display a progress wheel while executing.
           .then(this.setState({willShowLoader: true}))
           .then(f => this.setState({willShowLoader: false}))
           .then(f => alert("Project Creation Successful"))
@@ -106,6 +126,7 @@ class App extends Component {
     }
   }
 
+  // Donates the indicted amount to the project with the given key
   donateToProject = async (projectKey) => {
     try {
 
@@ -127,6 +148,7 @@ class App extends Component {
       console.log(error)
     }
 
+    // Reretrieve project array to update to new amount raised values.
     this.setState({
       projectsMap: null
     })
@@ -151,6 +173,7 @@ class App extends Component {
     })
   }
 
+  // Handles state change.
   handleChange(event) {
     const {name, value} = event.target
     this.setState({
@@ -158,6 +181,7 @@ class App extends Component {
     })
   }
 
+  // Retreives the values of all active donations.
   getBalance() {
     this.state.contract.methods.getContractBalance().call().then(
       f => this.setState({
@@ -168,10 +192,15 @@ class App extends Component {
 
   render() {
 
+    // If web3 has not loaded display helpful information
     if (!this.state.web3) {
-      return <div data-testid="NoWeb3" className="App">
-              <h2>Loading Web3, accounts, and contract......</h2>
-             </div>;
+      return (
+        <div className="App">
+          <AboutPage />
+          <MetamaskInfo />
+          <GettingFundsInfo />
+        </div>
+      )
     }
     if (this.state.currentPage === 'Home') {
       return (
@@ -183,6 +212,18 @@ class App extends Component {
           <HomePage account={this.state.accounts[0]}
                     getBalance={this.getBalance}
                     totalEthAmount={this.state.totalEthAmount} />
+        </div>
+      )
+    }
+    if (this.state.currentPage === 'Help') {
+      return (
+        <div className="App">
+          <Header handlePageChange={this.handlePageChange}
+                  handleBurgerMenuClick={this.handleBurgerMenuClick}
+                  currentPage={this.state.currentPage}
+                  burgerMenuClicked={this.state.burgerMenuClicked}/>
+          <AboutPage />
+          <GettingFundsInfo />
         </div>
       )
     }
