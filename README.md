@@ -2,7 +2,8 @@
 
 A fully decentralised crowdfunding platform built using blockchain technology and smart contracts. All transfers of funds are handled on a smart contract on a blockchain while project information is stored to the InterPlanetary File System, (IPFS. A peer-to-peer decentralised file system), in order to save on gas without sacrificing decentralisation or security. Includes a React web app UI for users to create, donate to and display projects. Can be run on the Ethereum Mainnet, any of its test networks or a personal ganache blockchain.
 
-A live version of the UI connected to the Rinkeby test network is available here: https://main.d3oz5l3o8ahlw9.amplifyapp.com/
+A live version of the UI connected to the Rinkeby test network is available here: 
+https://master.d39obh4okrtcli.amplifyapp.com/
 
 # Motivation
 
